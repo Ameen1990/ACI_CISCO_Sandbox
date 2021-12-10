@@ -30,7 +30,7 @@
 
    tasks:
    - name: Display the JSON file content
-       shell: cat output.txt
+       shell: cat coding_challenge_ansible.yml
        register: result
 
    - name: save the Json data to a Variable as a Fact
