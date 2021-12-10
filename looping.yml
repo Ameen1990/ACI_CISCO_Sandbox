@@ -26,8 +26,8 @@
 
 
    tasks:
-    - name: Calling Variabl File
-      include_vars: coding_challenge_ansible.yml
+   - name: Calling Variabl File
+     include_vars: coding_challenge_ansible.yml
 
    - name: Create a tenant
      aci_tenant:
