@@ -38,7 +38,9 @@
        password: "{{ pass }}"
        validate_certs: false
      
-
+     loop: "{{ tenants }}"
+     loop_control:
+       loop_var: tn
 
    - name: create Application Profile
      aci_ap:
@@ -54,6 +56,3 @@
      loop_control:
        loop_var: ap
        
-     loop: "{{ tenants }}"
-     loop_control:
-       loop_var: tn
