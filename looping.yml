@@ -38,12 +38,16 @@
        password: "{{ pass }}"
        validate_certs: false
 
+     loop: "{{ tenants }}"
+     loop_control:
+       loop_var: tn
+
    - name: create Application Profile
      aci_ap:
-       tenant: "{{ tn.name }}"
-       name: "{{ ap.tenants | json_query('application_profiles.name') }}"
+       tenant: "{{ tenants.name }}"
+       name: "{{ ap.name }}"
        #tenant: "{{ tenants | json_query('.name') }}" 
-       description: "{{ tenants | json_query('application_profiles.description') }}"
+       description: "{{ ap.description') }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
@@ -55,9 +59,6 @@
        loop_var: ap
 
 
-     loop: "{{ tenants }}"
-     loop_control:
-       loop_var: tn
 
 
 #     loop: 
