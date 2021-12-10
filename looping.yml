@@ -48,7 +48,7 @@
        password: "{{ pass }}"
        validate_certs: false
 
-     loop: "{{ tn.application_profiles }}"
+     loop: "{{ application_profiles }}"
      loop_control:
        loop_var: ap
        
