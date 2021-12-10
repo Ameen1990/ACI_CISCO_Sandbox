@@ -45,9 +45,9 @@
 
    - name: create Application Profile
      aci_ap:
-       name: "{{ tenants | json_query(application_profiles.name }}"
+       name: "{{ tenants | json_query(application_profiles.name) }}"
        tenant: "{{ tenants | json_query(tenants.name }}"
-       description: "{{ tenants | json_query(application_profiles.description }}"
+       description: "{{ tenants | json_query(application_profiles.description) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
