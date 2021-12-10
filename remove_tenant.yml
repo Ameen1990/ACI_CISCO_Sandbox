@@ -1,0 +1,41 @@
+---
+-  hosts: apic
+   any_errors_fatal: true
+   gather_facts: no
+   
+   vars:
+     ansible_connection: local
+     ansible_python_interpreter: /usr/bin/python3
+
+   vars_prompt:
+     - name: "apic_ip"
+       prompt: "Enter APIC IP"
+       default: '10.10.20.14'
+       private: no
+
+     - name: "user"
+       prompt: "Enter your APIC Username"
+       default: 'admin'
+       unsafe: yes
+
+     - name: "pass"
+       prompt: "Enter your APIC Password"
+       default: 'C1sco12345'
+       private: yes
+       unsafe: yes
+
+     - name: "tn_name"
+       prompt: "Enter Tenant Name"
+       default: 'TN_prod'
+       private: no
+
+   tasks:
+   - name: Remove a tenant
+     aci_tenant:
+       tenant: "{{ tn_name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       state: absent
+       validate_certs: false
+ 
