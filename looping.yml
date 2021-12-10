@@ -10,7 +10,7 @@
    vars_prompt:
      - name: "apic_ip"
        prompt: "Enter APIC IP"
-       default: '10.10.20.14'
+       default: 'sandboxapicdc.cisco.com'
        private: no
 
      - name: "user"
@@ -20,7 +20,7 @@
 
      - name: "pass"
        prompt: "Enter your APIC Password"
-       default: 'C1sco12345'
+       default: '!v3G@!4@Y'
        private: yes
        unsafe: yes
 
@@ -42,15 +42,16 @@
      loop_control:
        loop_var: tn
 
-   - name: create Application Profile
-     aci_ap:
-       name: "{{ tenants | json_query(application_profiles.name }}"
-       tenant: "{{ tn.name }}"
-       description: "{{ tenants | json_query(application_profiles.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+
+#   - name: create Application Profile
+#     aci_ap:
+#       name: "{{ tenants | json_query(application_profiles.name }}"
+#       tenant: "{{ tn.name }}"
+#       description: "{{ tenants | json_query(application_profiles.description }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
 #     loop: 
 
 #     with_items: "{{ application_profiles.tn }}"    
