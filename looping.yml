@@ -31,7 +31,7 @@
 
    - name: Create a tenant
      aci_tenant:
-       name: "{{ tn.name }}"
+       tenant: "{{ tn.name }}"
        description: "{{ tn.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
@@ -44,3 +44,8 @@
        loop_var: tn
 
 
+       tenant: "{{ tn_name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
