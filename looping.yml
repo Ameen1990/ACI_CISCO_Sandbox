@@ -46,13 +46,15 @@
    - name: create Application Profile
      aci_ap:
        name: "{{ tenants | json_query('application_profiles.name') }}"
-       tenant: TN_prod #"{{ tenants | json_query('tenants.name') }}"
+       tenant: TN_prod 
        description: "{{ tenants | json_query('application_profiles.description') }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
+
 #     loop: 
+# "{{ tenants | json_query('tenants.name') }}"
 
 #     with_items: "{{ application_profiles.tn }}"    
 #     loop: "{{ tn.application_profiles }}"
