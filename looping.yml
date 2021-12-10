@@ -42,7 +42,7 @@
      loop_control:
        loop_var: tn
 
-   - name: create Application Profile
+#   - name: create Application Profile
      aci_ap:
        tenant: "{{ tenants.name }}"
        name: "{{ ap.name }}"
@@ -54,7 +54,7 @@
        validate_certs: false
 
 
-     loop: "{{ tenants | application_profiles.json_query(application_profiles) }}"
+     loop: "{{ tenants | json_query(tenants.application_profiles) }}"
      loop_control:
        loop_var: ap
 
