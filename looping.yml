@@ -31,16 +31,16 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ tn.name }}"
-       description: "{{ tn.description }}"
+       tenant: "{{ item.name }}"
+       description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
 
      loop: "{{ tenants }}"
-     loop_control:
-       loop_var: tn
+#     loop_control:
+#       loop_var: tn
 
 #   - name: create Application Profile
      aci_ap:
