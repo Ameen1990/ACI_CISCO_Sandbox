@@ -2,15 +2,15 @@
 -  hosts: apic
    any_errors_fatal: true
    gather_facts: no
-   
+
    vars:
      ansible_connection: local
      ansible_python_interpreter: /usr/bin/python3
-
+    
    vars_prompt:
      - name: "apic_ip"
        prompt: "Enter APIC IP"
-       default: '10.10.20.14'
+       default: 'sandboxapicdc.cisco.com'
        private: no
 
      - name: "user"
@@ -20,7 +20,7 @@
 
      - name: "pass"
        prompt: "Enter your APIC Password"
-       default: 'C1sco12345'
+       default: '!v3G@!4@Y'
        private: yes
        unsafe: yes
 
