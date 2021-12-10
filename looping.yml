@@ -37,21 +37,26 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
+
+   - name: create Application Profile
+     aci_ap:
+       name: "{{ ap.name }}"
+       tenant: "{{ tn.name }}"
+       description: "{{ ap.description }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+
+     loop: "{{ tn.application_profiles }}"
+     loop_control:
+       loop_var: ap
        
      loop: "{{ tenants }}"
      loop_control:
        loop_var: tn
 
 
-   - name: create Application Profile
-     aci_ap:
-       ap: "{{ ap.name }}"
-       tenant: "{{ tn.name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
 
-     loop: "{{ tenants.application_profiles }}"
-     loop_control:
-       loop_var: ap
+
+
