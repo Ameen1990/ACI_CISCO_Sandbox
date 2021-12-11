@@ -42,7 +42,7 @@
 
    - name: Display all cluster names
      debug:
-       var: "{{ jsondata  | json_query(\"tenants.application_profiles[*].name\") }}"
+       var: "{{ jsondata  | json_query(\"tenants.application_profiles.name\") }}"
 
 #   - name: Display all cluster names
 #     ansible.builtin.debug:
