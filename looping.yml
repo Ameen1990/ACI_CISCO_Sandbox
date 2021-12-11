@@ -38,17 +38,27 @@
        jsondata: "{{ result.stdout | from_json }}"
 
 
-
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ item.name) }}"
-       description: "{{ item.description) }}"
+       tenant: "TN_prod"
+       description: "ddcd"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     with_items:
-       - "{{ jsondata | json_query(tenants) }}"
+
+
+
+#   - name: Create a tenant
+#     aci_tenant:
+#       tenant: "{{ item.name) }}"
+#       description: "{{ item.description) }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     with_items:
+#       - "{{ jsondata | json_query(tenants) }}"
 
 
 
