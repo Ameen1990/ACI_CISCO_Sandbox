@@ -35,15 +35,15 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ jsondata | json_query(q1) }}"
+       tenant: "{{ tenants | json_query(q1) }}"
        description: "{{ jsondata | json_query(q2) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
      vars:
-       q1: "jsondata.tenants.application_profiles.description" 
-       q2: "jsondata.tenants.application_profiles.description" 
+       q1: "tenants.application_profiles.description" 
+       q2: "tenants.application_profiles.description" 
        
 
 
