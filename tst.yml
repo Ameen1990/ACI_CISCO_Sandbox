@@ -39,14 +39,19 @@
        var: jsondata 
 
 
-
    - name: Display all cluster names
      debug:
        var: item
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].vrfs.name') }}"
      
-     
-     # name: Display all cluster names
+
+#   - name: Display all cluster names
+#     debug:
+#       var: item
+#     loop: "{{ jsondata  | json_query('tenants[*].vrfs') }}"
+   
+
+# name: Display all cluster names
 #     debug:
 #       var: item
 #     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
