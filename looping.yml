@@ -56,19 +56,18 @@
 
    - name: create Application Profile
      aci_ap:
-       tenant: "{{ tenants | json_query(tenants.name }}"
-       name: "{{ ap.name }}"
-       #tenant: "{{ tenants | json_query('.name') }}" 
-       description: "{{ ap.description') }}"
+       tenant: "{{ tenants | json_query(tenants.name) }}"
+       name: "{{ tenants | json_query(tenants.application_profiles.name) }}"
+       description: "{{ tenants | json_query(tenants.application_profiles.description) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
 
 
-     loop: "{{ tenants | json_query(tenants.application_profiles) }}"
-     loop_control:
-       loop_var: ap
+#     loop: "{{ tenants | json_query(tenants.application_profiles) }}"
+#     loop_control:
+#       loop_var: ap
 
 
 
