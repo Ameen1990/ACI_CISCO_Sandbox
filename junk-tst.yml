@@ -43,4 +43,4 @@
    - name: Display all cluster names
      ansible.builtin.debug:
        var: item
-     loop: "{{ domain_definition | json_query('domain.cluster[*].name') }}"
+     loop: "{{ jsondata  | json_query('domain_definition.domain.cluster[*].name') }}"
