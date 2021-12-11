@@ -63,6 +63,7 @@
        validate_certs: false
 
 
+
    - name: create Application Profile
      aci_ap:
        tenant: "{{ jsondata | json_query('tenants.name') }}"
