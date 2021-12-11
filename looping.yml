@@ -26,39 +26,39 @@
 
    tasks:
  
-   - name: Calling Variabl File
-     include_vars: coding_challenge_ansible.json
+#   - name: Calling Variabl File
+#     include_vars: coding_challenge_ansible.json
 
-#   - name: Display the JSON file content
-#     shell: cat coding_challenge_ansible.json
-#     register: result
+   - name: Display the JSON file content
+     shell: cat coding_challenge_ansible.json
+     register: result
 
-#   - name: save the Json data to a Variable as a Fact
-#     set_fact:
-#       jsondata: "{{ result.stdout | from_json }}"
+   - name: save the Json data to a Variable as a Fact
+     set_fact:
+       jsondata: "{{ result.stdout | from_json }}"
 
 
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ tn.name }}"
-       description: "{{ tn.description }}"
+       tenant: "{{ jsondata | json_query('tenants.name') }}"
+       description: "{{ jsondata | json_query('tenants..description') }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
 
-     loop: "{{ tenants }}"
-     loop_control:
-       loop_var: tn
+#     loop: "{{ jsondata | () }}"
+#     loop_control:
+#       loop_var: tn
 
 
 
    - name: create Application Profile
      aci_ap:
-       tenant: "{{ tenants | json_query('tenants.name') }}"
-       name: "{{ tenants | json_query('tenants.application_profiles.name') }}"
-       description: "{{ tenants | json_query('tenants.application_profiles.description') }}"
+       tenant: "{{ jsondata | json_query('tenants.name') }}"
+       name: "{{ jsondata | json_query('tenants.application_profiles.name') }}"
+       description: "{{ jsondata | json_query('tenants.application_profiles.description') }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
