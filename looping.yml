@@ -40,13 +40,17 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "TN_prod"
+       tenant: "{{ jsondata | json_query(tenanst.name) }}"
        description: "ddcd"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
 
+
+  #  group_id: "{{ groups | json_query(query) | first }}"
+  # vars:
+  #  query: "json[?name=='{{ group_name }}'].id"
 
 
 #   - name: Create a tenant
