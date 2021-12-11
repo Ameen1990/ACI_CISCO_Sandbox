@@ -27,23 +27,11 @@
 
 # []
 
-
-#   - name: Calling Variable File
-#     include_vars: coding_challenge_ansible.json
-   
    tasks:
-   - name: Display the JSON file content
-     shell: cat coding_challenge_ansible.json
-     register: result
 
-   - name: save the Json data to a Variable as a Fact
-     set_fact:
-       jsondata: "{{ result.stdout | from_json }}"
-
-   - name: Print out stuff
-     debug:
-       var: jsondata 
-
+   - name: Calling Variable File
+     include_vars: coding_challenge_ansible.json
+   
 
    - name: Create a tenant
      aci_tenant:
@@ -66,14 +54,18 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ item.name) }}"
-       description: "{{ item.description) }}"
+       tenant: "{{ tenants | json_query(q1) }}"
+       description: "{{ tenants | json_query(q1) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     with_items:
-       - "{{ jsondata | json_query(tenants) }}"
+     vars:
+       q1: "tenants.name" 
+
+     
+ #    with_items:
+ #      - "{{ jsondata | json_query(tenants) }}"
 
 
 
