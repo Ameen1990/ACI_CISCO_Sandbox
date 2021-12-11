@@ -42,9 +42,10 @@
 
    - name: Display all cluster names
      debug:
-       var: "{{ jsondata | json_query(\"tenants.vrfs[*].name\") }}"
+       var: item
+     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
 
 #   - name: Display all cluster names
-#     ansible.builtin.debug:
+#     debug:
 #       var: item
-#     loop: "{{ jsondata  | json_query('tenants[*].name') }}"
+#     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
