@@ -72,7 +72,7 @@
        password: "{{ pass }}"
        validate_certs: false
      with_items:
-       - "{{ jsondata | json_query(tenants.application_profiles) }}"
+       - "{{ jsondata | json_query('tenants.application_profiles') }}"
 
 
 
