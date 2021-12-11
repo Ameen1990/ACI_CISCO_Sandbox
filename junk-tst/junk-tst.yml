@@ -26,33 +26,21 @@
 
 
    tasks:
+   - name: Display the JSON file content
+     shell: cat /root/ACI_Objects_Creator/files/junk.json
+     register: result
 
-   - name: Calling Variable File
-     include_vars: coding_challenge_ansible.json
-   
-{{ some_variable | to_nice_json }}
+   - name: save the Json data to a Variable as a Fact
+     set_fact:
+       jsondata: "{{ result.stdout | from_json }}"
 
-   - name: Create a tenant
-     aci_tenant:
-       tenant: "{{ tenants | json_query(q1) }}"
-       description: "{{ tenants | json_query(q2) }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     vars:
-       q1: "tenants.name" 
-       q2: "tenants.application_profiles.description" 
-       
+   - name: Print to see how it looks like
+     debug:
+       var: jsondata 
 
-   - name: Create a tenant
-     aci_tenant:
-       tenant: "{{ tenants | json_query(q1) }}"
-       description: "{{ tenants | json_query(q1) }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     vars:
-       q1: "tenants.name" 
 
+
+   - name: Display all cluster names
+     ansible.builtin.debug:
+       var: item
+     loop: "{{ domain_definition | json_query('domain.cluster[*].name') }}"
