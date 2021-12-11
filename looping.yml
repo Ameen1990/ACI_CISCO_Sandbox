@@ -64,7 +64,7 @@
 
    - name: Create ap
      aci_ap:
-       nme: "{{ item.name }}"
+       name: "{{ item.name }}"
        description: "{{ item.description }}"
        tenant: "{{ jsondata | json_query(tenants.name) }}"
        host: "{{ inventory_hostname }}"
