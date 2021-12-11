@@ -47,12 +47,16 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ jsondata | json_query(tenants.application_profiles.description) }}"
-       description: "{{ jsondata | json_query(tenants.application_profiles.description) }}"
+       tenant: "{{ jsondata | json_query(q1) }}"
+       description: "{{ jsondata | json_query(q2) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
+     vars:
+       q1: "tenants.application_profiles.description" 
+       q2: "tenants.application_profiles.description" 
+       
 
 
   #  group_id: "{{ groups | json_query(query) | first }}"
@@ -60,16 +64,16 @@
   #  query: "json[?name=='{{ group_name }}'].id"
 
 
-#   - name: Create a tenant
-#     aci_tenant:
-#       tenant: "{{ item.name) }}"
-#       description: "{{ item.description) }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     with_items:
-#       - "{{ jsondata | json_query(tenants) }}"
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ item.name) }}"
+       description: "{{ item.description) }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_items:
+       - "{{ jsondata | json_query(tenants) }}"
 
 
 
