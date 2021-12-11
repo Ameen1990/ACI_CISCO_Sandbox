@@ -30,7 +30,8 @@
 
 #   - name: Calling Variable File
 #     include_vars: coding_challenge_ansible.json
-
+   
+   tasks:
    - name: Display the JSON file content
      shell: cat coding_challenge_ansible.json
      register: result
