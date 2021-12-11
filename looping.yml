@@ -56,7 +56,7 @@
    - name: Create a tenant
      aci_tenant:
        tenant: "{{ tenants | json_query(tenants.name) }}"
-       description: "{{ tenants | json_query(tenants.description) }}"
+       #description: "{{ tenants | json_query(tenants.description) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
