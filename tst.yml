@@ -1,0 +1,38 @@
+---
+-  hosts: apic
+   any_errors_fatal: true
+   gather_facts: no
+
+   vars:
+     ansible_connection: local
+     ansible_python_interpreter: /usr/bin/python3
+     input: "{{ lookup('file','coding_challenge_ansible.json') | from_json }}"
+    
+   vars_prompt:
+     - name: "apic_ip"
+       prompt: "Enter APIC IP"
+       default: 'sandboxapicdc.cisco.com'
+       private: no
+
+     - name: "user"
+       prompt: "Enter your APIC Username"
+       default: 'admin'
+       unsafe: yes
+
+     - name: "pass"
+       prompt: "Enter your APIC Password"
+       default: '!v3G@!4@Y'
+       private: yes
+       unsafe: yes
+
+
+   tasks:
+
+   - name: Create Tenants Dictionary
+     set_fact:
+       tenants: "{{ input.tenants }}"
+
+   - name: Print out interfaces
+     debug:
+       var: tenanst
+
