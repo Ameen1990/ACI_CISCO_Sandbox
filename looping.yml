@@ -25,9 +25,6 @@
        unsafe: yes
 
 
-# []
-
-
 #   - name: Calling Variable File
 #     include_vars: coding_challenge_ansible.json
    
@@ -40,45 +37,27 @@
      set_fact:
        jsondata: "{{ result.stdout | from_json }}"
 
-   - name: Print out stuff
+   - name: Print to see how it looks like
      debug:
        var: jsondata 
 
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ jsondata | json_query(\"tenant.name\") }}"
-       description: "{{ jsondata | json_query(\"tenant.description\") }}"
+       tenant: "{{ jsondata | json_query(\"tenants.name\") }}"
+       description: "{{ jsondata | json_query(\"tenants.description\") }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-      
-
-
-  #  group_id: "{{ groups | json_query(query) | first }}"
-  # vars:
-  #  query: "json[?name=='{{ group_name }}'].id"
-
-
-   - name: Create a tenant
-     aci_tenant:
-       tenant: "{{ item.name) }}"
-       description: "{{ item.description) }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     with_items:
-       - "{{ jsondata | json_query(tenants) }}"
-
-
+#     with_items:  "{{  }}"
+  
 
    - name: Create ap
      aci_ap:
-       name: "{{ item.name }}"
-       description: "{{ item.description }}"
-       tenant: "{{ jsondata | json_query(tenants.name) }}"
+       name: "{{ jsondata | json_query(\"tenants.application_profiles.name\") }}"
+       #description: "{{ item.description }}"
+       tenant: "{{ jsondata | json_query(\"tenants.name\") }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
