@@ -66,7 +66,7 @@
        validate_certs: false
 
 
-     loop: "{{ tenants | json_query(tenants.application_profiles }}"
+     loop: "{{ tenants | json_query(tenants.application_profiles) }}"
      loop_control:
        loop_var: ap
 
