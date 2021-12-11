@@ -54,8 +54,8 @@
        password: "{{ pass }}"
        validate_certs: false
      vars:
-       q1: "tenants.application_profiles.description" 
-       q2: "tenants.application_profiles.description" 
+       q1: "jsondata.tenants.application_profiles.description" 
+       q2: "jsondata.tenants.application_profiles.description" 
        
 
 
