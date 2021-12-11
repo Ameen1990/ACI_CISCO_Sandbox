@@ -6,7 +6,6 @@
    vars:
      ansible_connection: local
      ansible_python_interpreter: /usr/bin/python3
-     input: "{{ lookup('file','coding_challenge_ansible.json') | from_json }}"
     
    vars_prompt:
      - name: "apic_ip"
@@ -26,13 +25,104 @@
        unsafe: yes
 
 
-   tasks:
+# []
 
-   - name: Create Tenants Dictionary
+
+   - name: Calling Variable File
+     include_vars: coding_challenge_ansible.json
+
+   - name: Display the JSON file content
+     shell: cat coding_challenge_ansible.json
+     register: result
+
+   - name: save the Json data to a Variable as a Fact
      set_fact:
-       tenants: "{{ input | json_query(input.tenants) }}"
+       jsondata: "{{ result.stdout | from_json }}"
 
-   - name: Print out interfaces
-     debug:
-       var: tenants
+
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ jsondata | json_query('tenants.name') }}"
+       description: "{{ jsondata | json_query('tenants.description') }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+
+
+  #  group_id: "{{ groups | json_query(query) | first }}"
+  # vars:
+  #  query: "json[?name=='{{ group_name }}'].id"
+
+
+#   - name: Create a tenant
+#     aci_tenant:
+#       tenant: "{{ item.name) }}"
+#       description: "{{ item.description) }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     with_items:
+#       - "{{ jsondata | json_query(tenants) }}"
+
+
+
+   - name: Create ap
+     aci_ap:
+       name: "{{ item.name }}"
+       description: "{{ item.description }}"
+       tenant: "{{ jsondata | json_query(tenants.name) }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_items:
+       - "{{ jsondata | json_query('tenants.application_profiles') }}"
+
+
+
+#     loop: "{{ jsondata | () }}"
+#     loop_control:
+#       loop_var: tn
+
+
+#   - name: Create a tenant
+#     aci_tenant:
+#       tenant: "{{ tenants | json_query('tenants.name') }}"
+#       #description: "{{ tenants | json_query(tenants.description) }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+
+
+
+#   - name: create Application Profile
+#     aci_ap:
+#       tenant: "{{ jsondata | json_query(tenants.name) }}"
+#       name: "{{ jsondata | json_query('tenants.application_profiles.name') }}"
+#       description: "{{ jsondata | json_query('tenants.application_profiles.description') }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+
+
+#     loop: "{{ tenants | json_query(tenants.application_profiles) }}"
+#     loop_control:
+#       loop_var: ap
+
+
+
+
+#     loop: 
+# "{{ tenants | json_query('tenants.name') }}"
+
+#     with_items: "{{ application_profiles.tn }}"    
+#     loop: "{{ tn.application_profiles }}"
+#     loop_control:
+#       loop_var: ap
+       
+# "{{ tenants | application_profiles.json_query(domain.server[?cluster=='cluster1'].port) }}"
 
