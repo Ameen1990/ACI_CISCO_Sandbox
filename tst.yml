@@ -43,7 +43,7 @@
    - name: Display all cluster names
      debug:
        var: item
-     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name'), wantlist=True }}"
+     loop: "{{ jsondata  | json_query('tenants.bridge_domains[*].name') }}"
      
      
      # name: Display all cluster names
