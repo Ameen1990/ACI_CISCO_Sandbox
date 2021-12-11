@@ -40,7 +40,7 @@
      set_fact:
        jsondata: "{{ result.stdout | from_json }}"
 
-  - name: Print out stuff
+   - name: Print out stuff
      debug:
        var: jsondata 
 
