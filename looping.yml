@@ -26,41 +26,41 @@
 
    tasks:
  
-   - name: Calling Variabl File
-     include_vars: coding_challenge_ansible.json
+#   - name: Calling Variabl File
+#     include_vars: coding_challenge_ansible.json
 
-#   - name: Display the JSON file content
-#     shell: cat coding_challenge_ansible.json
-#     register: result
+   - name: Display the JSON file content
+     shell: cat coding_challenge_ansible.json
+     register: result
 
-#   - name: save the Json data to a Variable as a Fact
-#     set_fact:
-#       jsondata: "{{ result.stdout | from_json }}"
+   - name: save the Json data to a Variable as a Fact
+     set_fact:
+       jsondata: "{{ result.stdout | from_json }}"
 
 
 
-#   - name: Create a tenant
-#     aci_tenant:
-#       tenant: "{{ jsondata | json_query('tenants.name') }}"
-#       description: "{{ jsondata | json_query('tenants.description') }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ jsondata | json_query('tenants.name') }}"
+       description: "{{ jsondata | json_query('tenants.description') }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
 
 #     loop: "{{ jsondata | () }}"
 #     loop_control:
 #       loop_var: tn
 
 
-   - name: Create a tenant
-     aci_tenant:
-       tenant: "{{ tenants | json_query('tenants.name') }}"
-       #description: "{{ tenants | json_query(tenants.description) }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+#   - name: Create a tenant
+#     aci_tenant:
+#       tenant: "{{ tenants | json_query('tenants.name') }}"
+#       #description: "{{ tenants | json_query(tenants.description) }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
 
 
 
