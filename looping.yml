@@ -55,7 +55,7 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ tenants | json_query(tenants.name) }}"
+       tenant: "{{ tenants | json_query('tenants.name') }}"
        #description: "{{ tenants | json_query(tenants.description) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
@@ -66,7 +66,7 @@
 
    - name: create Application Profile
      aci_ap:
-       tenant: "{{ jsondata | json_query('tenants.name') }}"
+       tenant: "{{ jsondata | json_query(tenants.name) }}"
        name: "{{ jsondata | json_query('tenants.application_profiles.name') }}"
        description: "{{ jsondata | json_query('tenants.application_profiles.description') }}"
        host: "{{ inventory_hostname }}"
