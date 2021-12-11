@@ -66,7 +66,7 @@
      aci_ap:
        nme: "{{ item.name) }}"
        description: "{{ item.description) }}"
-       tenant: "{{ jsondata | json_query(tenants.name)) }}"
+       tenant: "{{ jsondata | json_query(tenants.name) }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
