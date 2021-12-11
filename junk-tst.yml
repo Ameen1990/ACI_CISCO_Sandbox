@@ -1,0 +1,58 @@
+---
+-  hosts: apic
+   any_errors_fatal: true
+   gather_facts: no
+
+   vars:
+     ansible_connection: local
+     ansible_python_interpreter: /usr/bin/python3
+    
+   vars_prompt:
+     - name: "apic_ip"
+       prompt: "Enter APIC IP"
+       default: 'sandboxapicdc.cisco.com'
+       private: no
+
+     - name: "user"
+       prompt: "Enter your APIC Username"
+       default: 'admin'
+       unsafe: yes
+
+     - name: "pass"
+       prompt: "Enter your APIC Password"
+       default: '!v3G@!4@Y'
+       private: yes
+       unsafe: yes
+
+
+   tasks:
+
+   - name: Calling Variable File
+     include_vars: coding_challenge_ansible.json
+   
+{{ some_variable | to_nice_json }}
+
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ tenants | json_query(q1) }}"
+       description: "{{ tenants | json_query(q2) }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     vars:
+       q1: "tenants.name" 
+       q2: "tenants.application_profiles.description" 
+       
+
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ tenants | json_query(q1) }}"
+       description: "{{ tenants | json_query(q1) }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     vars:
+       q1: "tenants.name" 
+
