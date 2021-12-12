@@ -105,15 +105,15 @@
    - name: Create ap
      tags: ap
      aci_ap:
-       name: "{{ item }}"
+       name: "{{ item.name }}"
        tenant: TN_prod #"{{ tn_name }}"
-       description: "{{ tn_desc }}"
+       description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
      with_items:
-     - "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
+     - "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
    - name: Display vrf list
