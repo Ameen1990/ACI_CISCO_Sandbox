@@ -132,7 +132,7 @@
      tags: vrf
      aci_vrf:
        vrf: "{{ item.name }}"
-       tenant: "{{ tn_name }}"
+       tenant: str ("{{ tn_name }}")
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
