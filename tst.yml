@@ -126,7 +126,7 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-    loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
 
 
 # Output
