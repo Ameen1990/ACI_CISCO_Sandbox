@@ -37,7 +37,7 @@
        jsondata: "{{ result.stdout | from_json }}"
 
 
-   - name: set tenant name
+   - name: set tenant name & desc
      tags: always
      set_fact:
        tn_name: "{{ jsondata | json_query('tenants[*].name') }}"
@@ -46,14 +46,14 @@
 #       jmesquery: 'tenants[*].name'
 
 
-   - name: Print Tenant name
+   - name: Print Tenant name & desc
      debug:
        var: tn_name
        var: tn_desc
        
 
 
-   - name: Display stuff-2
+   - name: Display ap list
      tags: ap
      debug:
        var: item
