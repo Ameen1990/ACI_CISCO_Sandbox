@@ -106,17 +106,14 @@
    - name: Create ap
      tags: ap
      aci_ap:
-       tenant: "{{ tn.name }}"
+       tenant: "{{ tn_name }}"
        name: "{{ ap.name }}"
        description: "{{ ap.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
-     loop_control:
-      loop_var: tn
-     
+
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
      loop_control:
       loop_var: ap
