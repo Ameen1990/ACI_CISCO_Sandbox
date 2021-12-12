@@ -65,15 +65,15 @@
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
-   - name: Create a tenant
-     aci_ap:
-       tenant: "{{ tn_name }}"
-       description: "{{ item.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+#   - name: Create ap
+#     aci_ap:
+#       tenant: "{{ tn_name }}"
+#       description: "{{ item.description }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
 
