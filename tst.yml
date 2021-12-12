@@ -60,6 +60,11 @@
        ap_name: item
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
+   - name: Display ap name field
+     tags: ap
+     debug:
+       var: ap_name
+     
 
 # es funktioniert
 #   - name: Display ap list
