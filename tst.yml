@@ -41,8 +41,38 @@
 
    - name: Display all cluster names
      debug:
-      var: item.name
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs') }}"
+      var: item
+     loop: "{{ jsondata  | json_query('tenants[*].vrfs[*]') }}"
+
+
+    
+# output: -
+
+# ok: [{{ apic_ip }}] => (item=[{u'name': u'datacenter'}]) => {
+#    "ansible_loop_var": "item",
+#    "item": [
+#        {
+#            "name": "datacenter"
+#        }
+#    ]
+#}
+
+
+#   - name: Display all cluster names
+#     debug:
+#      var: item.name
+#     loop: "{{ jsondata  | json_query('tenants[*].vrfs') }}"
+
+
+#ok: [{{ apic_ip }}] => (item=[{u'name': u'datacenter'}]) => {
+#    "ansible_loop_var": "item",
+#    "item": [
+#        {
+#            "name": "datacenter"
+#        }
+#    ],
+#    "item.name": "VARIABLE IS NOT DEFINED!"
+#}
 
 
     
