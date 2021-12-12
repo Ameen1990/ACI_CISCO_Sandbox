@@ -38,6 +38,7 @@
 
 
    - name: set tenant name
+     tags: always
      set_fact:
        tn_name: "{{ jsondata | json_query('tenants[*].name') }}"
        tn_desc: "{{ jsondata | json_query('tenants[*].description') }}"
@@ -50,6 +51,14 @@
        var: tn_name
        var: tn_desc
        
+
+
+   - name: Display stuff-2
+     tags: ap
+     debug:
+       var: item
+     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+
 
 #   - name: set tenants desription
 #     set_fact:
@@ -74,12 +83,24 @@
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
+#   - name: Create ap
+#     aci_ap:
+#       tenant: "{{ tn_name }}"
+#       description: "{{ item.description }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+
 
    - name: Display stuff-2
      tags: vrf
      debug:
        var: item
      loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+
+
 
 # Output
 # ok: [{{ apic_ip }}] => (item={u'name': u'datacenter'}) => {
