@@ -59,7 +59,7 @@
 
    - name: Display all cluster names
      debug:
-       var: "{{ jsondata  | json_query('tenants[*].vrfs.name') }}"
+       var: "{{ jsondata  | json_query('tenants.vrfs.name') }}"
 
    
 
