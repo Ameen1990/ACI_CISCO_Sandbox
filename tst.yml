@@ -67,6 +67,27 @@
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
+#   - name: create VRF
+#     aci_vrf:
+#       vrf: "{{ vrf_name }}"
+#       tenant: "{{ tn_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#      password: "{{ pass }}"
+#       validate_certs: false
+
+
+ #  - name: Create dbs
+ #    aci_bd:
+ #      bd: "{{ item.name }}"
+ #      description: "{{ item.description }}"
+ #      host: "{{ inventory_hostname }}"
+ #      username: "{{ user }}"
+ #      password: "{{ pass }}"
+ #      validate_certs: false
+ #    loop: "{{ jsondata  | json_query('tenants[*].bride_domains[*]') }}"
+
+
 #   - name: Create ap
 #     aci_ap:
 #       tenant: "{{ tn_name }}"
@@ -146,13 +167,13 @@
 
 
 
-   - name: Display stuff
-     tags: tst
-     debug:
-       var: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+#   - name: Display stuff
+#     tags: tst
+#     debug:
+#       var: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
  
 
-#   - name: Display all cluster names
-#     debug:
-#       var: item.name
-#     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
+   - name: Display all cluster names
+     debug:
+       var: item.name
+     loop: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
