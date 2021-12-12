@@ -112,7 +112,8 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
+     with_items:
+     - "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
 
    - name: Display vrf list
