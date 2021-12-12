@@ -117,6 +117,16 @@
        var: item
      loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
 
+   - name: create VRF
+     tags: vrf
+     aci_vrf:
+       vrf: "{{ item }}"
+       tenant: "{{ tn_name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+    loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
 
 
 # Output
