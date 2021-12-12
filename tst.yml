@@ -149,7 +149,7 @@
    - name: Display stuff
      tags: tst
      debug:
-       var: "{{ jsondata  | json_query('application_profiles[]') }}"
+       var: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
  
 
 #   - name: Display all cluster names
