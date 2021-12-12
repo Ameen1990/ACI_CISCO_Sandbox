@@ -43,7 +43,14 @@
        tn_name: "{{ item.name }}"
      loop: "{{ jsondata | json_query('tenants[*]') }}"
  
-       
+
+   - name: set vrf name
+     tags: always
+     set_fact:
+       vrf_name: "{{ item.name }}"
+     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+
+
 
    - name: Print Tenant name
      debug:
@@ -150,14 +157,24 @@
 
 
 
-#   - name: create a Bridge-Domain_webserver
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ bd_1 }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#       scope: public
+   - name: Display bd-specific list list
+     tags: bd
+     debug:
+       var: item
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[].subnets[?name==20.0.1.1]') }}"
+
+
+ #  - name: create a Bridge-Domain_webserver
+ #    tags: bd
+ #    aci_bd:
+ #      tenant: "{{ tn_name }}"
+ #      bd: "{{ item.name }}"
+ #      vrf: "{{ vrf_name }}"
+ #      host: "{{ inventory_hostname }}"
+ #      username: "{{ user }}"
+ #      password: "{{ pass }}"
+ #      validate_certs: false
+ #      scope: "{{ item.scope }}"
+ #   loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
+
 
