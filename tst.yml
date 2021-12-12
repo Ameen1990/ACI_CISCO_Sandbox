@@ -65,13 +65,13 @@
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ tn_name }}"
-       description: "{{ tn_desc }}"
+       tenant: "{{ item.name }}"
+       description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
 
