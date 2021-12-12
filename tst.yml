@@ -55,7 +55,7 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[*]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
 # output: -
