@@ -113,13 +113,14 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
+     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+     loop_control:
+      loop_var: tn
+     
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
      loop_control:
       loop_var: ap
 
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
-     loop_control:
-      loop_var: tn
      
 
 
