@@ -41,9 +41,10 @@
 
    - name: Display all cluster names
      debug:
-      var: item
-      trg: item.name
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+     var: item.name
+     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+
+
 
 
 
