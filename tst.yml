@@ -120,7 +120,7 @@
    - name: create VRF
      tags: vrf
      aci_vrf:
-       vrf: "{{ item }}"
+       vrf: "{{ item.name }}"
        tenant: "{{ tn_name }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
