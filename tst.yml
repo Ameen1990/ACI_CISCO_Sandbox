@@ -57,7 +57,7 @@
    - name: Create a tenant
      aci_tenant:
        tenant: "{{ item.name) }}"
-       description: "{{ item.description) }}"
+       description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
