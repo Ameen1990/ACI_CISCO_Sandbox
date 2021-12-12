@@ -56,7 +56,7 @@
    - name: Display ap list
      tags: ap
      debug:
-       var: item
+       var: item.name
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
@@ -94,7 +94,7 @@
 #     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
-   - name: Display stuff-2
+   - name: Display vrf list
      tags: vrf
      debug:
        var: item
