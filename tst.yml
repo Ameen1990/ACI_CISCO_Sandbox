@@ -41,7 +41,7 @@
 
    - name: Display all cluster names
      debug:
-       var: item.name
+       var: item.description
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
