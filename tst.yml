@@ -106,7 +106,7 @@
      tags: ap
      aci_ap:
        name: "{{ item.name }}"
-       tenant: "{{ tn_name }}"
+       tenant: "{{ tn.name }}"
        description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
@@ -114,6 +114,9 @@
        validate_certs: false
      with_items:
      - "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+     loop_control:
+       loop_var: tn
 
 
    - name: Display vrf list
