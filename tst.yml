@@ -34,6 +34,11 @@
      set_fact:
        jsondata: "{{ result.stdout | from_json }}"
 
+   - name: save the Json data to a Variable as a Fact
+     set_fact:
+       b_ds: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
+
+
 #   - name: Print to see how it looks like
 #     debug:
 #       var: jsondata 
@@ -103,9 +108,8 @@
 
    - name: Display stuff
      debug:
-       var: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
-
-   
+       var: "{{ jsondata  | json_query('tenants[].application_profiles[].name') }}"
+ 
 
 #   - name: Display all cluster names
 #     debug:
