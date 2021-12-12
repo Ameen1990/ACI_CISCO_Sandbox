@@ -37,17 +37,13 @@
        jsondata: "{{ result.stdout | from_json }}"
 
 
-   - name: set tenant
+   - name: set tenant name
      tags: always
      set_fact:
        tn_name: "{{ item.name }}"
      loop: "{{ jsondata | json_query('tenants[*]') }}"
  
-       #tn_desc: "{{ jsondata | json_query('tenants[*].description') }}"
-
-#     vars:
-#       jmesquery: 'tenants[*].name'
-
+       
 
    - name: Print Tenant name
      debug:
@@ -88,10 +84,6 @@
 
 
 
-   - name: set bridge domains_name
-     set_fact:
-       b_ds: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
-
 
    - name: Create a tenant
      tags: always
@@ -120,13 +112,14 @@
      loop_control:
       loop_var: ap
 
-     
+
 
    - name: Display vrf list
      tags: vrf
      debug:
        var: item
      loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+
 
    - name: create VRF
      tags: vrf
@@ -147,4 +140,24 @@
 #        "name": "datacenter"
 #    }
 #}
+
+
+   - name: Display bd list
+     tags: bd
+     debug:
+       var: item
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
+
+
+
+#   - name: create a Bridge-Domain_webserver
+#     aci_bd:
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ bd_1 }}"
+#       vrf: "{{ vrf_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#       scope: public
 
