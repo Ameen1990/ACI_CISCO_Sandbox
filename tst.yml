@@ -56,7 +56,7 @@
    - name: Display ap list
      tags: ap
      debug:
-       var: item.name
+       var: item
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
 
