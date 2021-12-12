@@ -146,7 +146,7 @@
 
    - name: Display stuff
      debug:
-       var: "{{ jsondata  | json_query(application_profiles[].name') }}"
+       var: "{{ jsondata  | json_query('application_profiles[].name') }}"
  
 
 #   - name: Display all cluster names
