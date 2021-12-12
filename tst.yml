@@ -39,23 +39,21 @@
        var: jsondata 
 
 
-   - name: Display all cluster names
-     debug:
-       var: item.name
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+#   - name: Display all cluster names
+#     debug:
+#       var: item.name
+#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ tn.name }}"
-       description: "{{ tn.description }}"
+       tenant: "{{ item.name }}"
+       description: "{{ item.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
-       loop_var: tn
-
 #     with_items:  "{{  }}"
 
 
