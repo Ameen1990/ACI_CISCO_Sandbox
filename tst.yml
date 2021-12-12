@@ -105,7 +105,7 @@
    - name: Create ap
      tags: ap
      aci_ap:
-       name: "{{ item }}"
+       name: "{{ item.name }}"
        tenant: "{{ tn_name }}"
        description: "{{ tn_desc }}"
        host: "{{ inventory_hostname }}"
