@@ -39,24 +39,23 @@
 #       var: jsondata 
 
 
-   - name: Display all cluster names
-     debug:
-       var: item.description
+#   - name: Display all cluster names
+#     debug:
+#       var: item.description
+#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+
+
+
+   - name: Create ap
+     aci_ap:
+       name: "{{ item.name }}"
+       description: "{{ item.description }}"
+       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
-
-
-
-#   - name: Create ap
-#     aci_ap:
-#       name: "{{ item.name }}"
-#       description: "{{ item.description }}"
-#       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     loop: "{{ jsondata | json_query('tenants[*].application_profiles[]') }}"
-
 
 
 # output: -
