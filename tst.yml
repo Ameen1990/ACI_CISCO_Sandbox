@@ -40,6 +40,7 @@
    - name: set tenant name
      set_fact:
        tn_name: "{{ jsondata | json_query('tenants[*].name') }}"
+       tn_desc: "{{ jsondata | json_query('tenants[*].description') }}"
 #     vars:
 #       jmesquery: 'tenants[*].name'
 
@@ -47,28 +48,30 @@
    - name: Print Tenant name
      debug:
        var: tn_name
+       var: tn_desc
        
 
-   - name: set tenants desription
-     set_fact:
-       tn_desc: "{{ jsondata | json_query(jmesquery) }}"
-     vars:
-       jmesquery: 'tenants[*].description'
+#   - name: set tenants desription
+#     set_fact:
+#       tn_desc: "{{ jsondata | json_query(jmesquery) }}"
+#     vars:
+#       jmesquery: 'tenants[*].description'
 
 
    - name: set bridge domains_name
      set_fact:
        b_ds: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
 
+
    - name: Create a tenant
      aci_tenant:
-       tenant: "{{ item.name }}"
-       description: "{{ item.description }}"
+       tenant: "{{ tn_name }}"
+       description: "{{ tn_desc }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
 
