@@ -39,7 +39,7 @@
      set_fact:
        tn_name: "{{ jsondata | json_query(jmesquery) }}"
      vars:
-       jmesquery: 'tenants.name'
+       jmesquery: 'tenants[*].name'
 
 
 
@@ -47,7 +47,7 @@
      set_fact:
        tn_desc: "{{ jsondata | json_query(jmesquery) }}"
      vars:
-       jmesquery: 'tenants.description'
+       jmesquery: 'tenants[*].description'
 
 
    - name: set bridge domains_name
