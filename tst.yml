@@ -176,5 +176,4 @@
    - name: Display all cluster names
      tags: vrf
      debug:
-       var: item.name
-     loop: "{{ jsondata  | json_query('tenants.vrfs[*]') }}"
+       var: "{{ jsondata  | json_query('tenants.vrfs[*].name') }}"
