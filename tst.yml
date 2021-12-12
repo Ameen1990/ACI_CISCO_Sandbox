@@ -34,39 +34,28 @@
      set_fact:
        jsondata: "{{ result.stdout | from_json }}"
 
-   - name: Print to see how it looks like
-     debug:
-       var: jsondata 
-
-
-#   - name: Display all cluster names
+#   - name: Print to see how it looks like
 #     debug:
-#       var: item.name
-#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
+#       var: jsondata 
 
 
-   - name: Create a tenant
-     aci_tenant:
-       tenant: "{{ item.name }}"
-       description: "{{ item.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
-#     with_items:  "{{  }}"
+   - name: Display all cluster names
+     debug:
+       var: item.name
+     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
-   - name: Create ap
-     aci_ap:
-       name: "{{ item.name }}"
-       description: "{{ item.description }}"
-       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata | json_query('tenants[*].application_profiles[]') }}"
+
+#   - name: Create ap
+#     aci_ap:
+#       name: "{{ item.name }}"
+#       description: "{{ item.description }}"
+#       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata | json_query('tenants[*].application_profiles[]') }}"
 
 
 
