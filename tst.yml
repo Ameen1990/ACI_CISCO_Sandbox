@@ -39,9 +39,10 @@
 
    - name: set tenant name
      set_fact:
-       tn_name: "{{ jsondata | json_query(jmesquery) }}"
-     vars:
-       jmesquery: 'tenants[*].name'
+       tn_name: "{{ jsondata | json_query('tenants[*].name') }}"
+#     vars:
+#       jmesquery: 'tenants[*].name'
+
 
    - name: Print Tenant name
      debug:
