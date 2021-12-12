@@ -41,11 +41,11 @@
 
    - name: Display all cluster names
      debug:
-      var: item
+      var: item.name
      loop: "{{ jsondata  | json_query('tenants[*].vrfs[*]') }}"
 
 
-    
+
 # output: -
 
 # ok: [{{ apic_ip }}] => (item=[{u'name': u'datacenter'}]) => {
