@@ -57,7 +57,7 @@
      tags: ap
      debug:
        var: item.name
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
 
 #   - name: set tenants desription
