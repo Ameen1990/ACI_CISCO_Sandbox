@@ -41,7 +41,7 @@
      tags: always
      set_fact:
        tn_name: "{{ jsondata | json_query('tenants[*].name') }}"
-       tn_desc: "{{ jsondata | json_query('tenants[*].description') }}"
+       #tn_desc: "{{ jsondata | json_query('tenants[*].description') }}"
 
 #     vars:
 #       jmesquery: 'tenants[*].name'
@@ -106,17 +106,17 @@
      tags: ap
      aci_ap:
        tenant: "{{ tn_name }}"
-       name: "{{item.application_profiles[].name }}"
-       description: "{{ item.application_profiles[].description }}"
+       name: "{{ ap.name }}"
+       description: "{{ ap.description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop:  "{{ jsondata  | json_query('tenants[*]') }}"
-#     loop_control:
-#      loop_var: tn
+     loop:  "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+     loop_control:
+      loop_var: ap
 
-#    loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 #    loop_control:
 #      loop_var: ap
      
