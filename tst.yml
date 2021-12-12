@@ -43,7 +43,10 @@
      vars:
        jmesquery: 'tenants[*].name'
 
-
+   - name: Print Tenant name
+     debug:
+       var: tn_name
+       
 
    - name: set tenants desription
      set_fact:
@@ -73,3 +76,12 @@
      debug:
        var: item
      loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
+
+# Output
+# ok: [{{ apic_ip }}] => (item={u'name': u'datacenter'}) => {
+#    "ansible_loop_var": "item",
+#    "item": {
+#        "name": "datacenter"
+#    }
+#}
+
