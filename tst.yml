@@ -46,16 +46,16 @@
 
 
 
-   - name: Create ap
-     aci_ap:
-       name: "{{ item.name }}"
-       description: "{{ item.description }}"
-       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+#   - name: Create ap
+#     aci_ap:
+#       name: "{{ item.name }}"
+#       description: "{{ item.description }}"
+#       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
 # output: -
@@ -101,9 +101,9 @@
 
 
 
-#   - name: Display all cluster names
-#     debug:
-#       var: "{{ jsondata  | json_query('tenants[*].vrfs.name') }}"
+   - name: Display stuff
+     debug:
+       var: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
    
 
