@@ -53,11 +53,20 @@
        
 
 
+
    - name: Display ap list
      tags: ap
-     debug:
-       var: item
+     set_fact:
+       ap_name: var: item
      loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
+
+
+# es funktioniert
+#   - name: Display ap list
+#     tags: ap
+#     debug:
+#       var: item
+#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
 
 
 #   - name: set tenants desription
