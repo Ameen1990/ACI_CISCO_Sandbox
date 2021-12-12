@@ -37,7 +37,7 @@
        jsondata: "{{ result.stdout | from_json }}"
 
 
-   - name: set tenant name & desc
+   - name: set tenant
      tags: always
      set_fact:
        tn_name: "{{ item.name }}"
@@ -122,8 +122,6 @@
 
      
 
-
-
    - name: Display vrf list
      tags: vrf
      debug:
@@ -134,7 +132,7 @@
      tags: vrf
      aci_vrf:
        vrf: "{{ item.name }}"
-       tenant: str ("{{ tn_name }}")
+       tenant: "{{ tn_name }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
