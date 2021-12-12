@@ -45,7 +45,7 @@
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
-- name: Create a tenant
+   - name: Create a tenant
      aci_tenant:
        tenant: "{{ tn.name }}"
        description: "{{ tn.description }}"
