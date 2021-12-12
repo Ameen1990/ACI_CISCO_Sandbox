@@ -93,6 +93,7 @@
 
 
    - name: Create a tenant
+     tags: always
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
