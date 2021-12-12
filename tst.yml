@@ -84,6 +84,8 @@
 #       jmesquery: 'tenants[*].description'
 
 
+
+
    - name: set bridge domains_name
      set_fact:
        b_ds: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
@@ -100,14 +102,16 @@
      loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
-#   - name: Create ap
-#     aci_ap:
-#       tenant: "{{ tn_name }}"
-#       description: "{{ item.description }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
+   - name: Create ap
+     tags: ap
+     aci_ap:
+       name: "{{ ap_name }}"
+       tenant: "{{ tn_name }}"
+       description: "{{ tn_desc }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
 #     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
 
 
