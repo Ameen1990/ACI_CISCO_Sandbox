@@ -106,19 +106,21 @@
      tags: ap
      aci_ap:
        tenant: "{{ tn.name }}"
-       name: "{{ ap.name }}"
-       description: "{{ ap.description }}"
+       name: "{{ tn.application_profiles[].name }}"
+       description: "{{ tn.application_profiles[].description }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
-     loop_control:
-      loop_var: ap
      loop:  "{{ jsondata  | json_query('tenants[*]') }}"
      loop_control:
       loop_var: tn
+
+#    loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
+#    loop_control:
+#      loop_var: ap
      
+
 
 
    - name: Display vrf list
