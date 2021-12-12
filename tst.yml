@@ -34,9 +34,35 @@
      set_fact:
        jsondata: "{{ result.stdout | from_json }}"
 
-   - name: save the Json data to a Variable as a Fact
+
+   - name: set tenant name
+     set_fact:
+       tn_name: "{{ jsondata | json_query(jmesquery) }}"
+     vars:
+       jmesquery: 'tenants.name'
+
+
+
+   - name: set tenants desription
+     set_fact:
+       tn_desc: "{{ jsondata | json_query(jmesquery) }}"
+     vars:
+       jmesquery: 'tenants.description'
+
+
+   - name: set bridge domains_name
      set_fact:
        b_ds: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
+
+   - name: Create a tenant
+     aci_tenant:
+       tenant: "{{ tn_name }}"
+       description: "{{ tn_description }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*]') }}"
 
 
 #   - name: Print to see how it looks like
@@ -55,7 +81,7 @@
 #     aci_ap:
 #       name: "{{ item.name }}"
 #       description: "{{ item.description }}"
-#       tenant: TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
+#       tenant: "{{ tn_name" }}"  # TN_Prod # "{{ jsondata | json_query(\"tenants.name\") }}"
 #       host: "{{ inventory_hostname }}"
 #       username: "{{ user }}"
 #       password: "{{ pass }}"
