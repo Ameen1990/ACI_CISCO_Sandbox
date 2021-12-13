@@ -54,7 +54,7 @@
        msg: "{{ item.1.subnets.name }}"
        #msg: "{{ item.1.name }}"
        #msg: "{{ item.1.name }}"
-     #with_subelements: 
+     with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
 #       - "subnets, skip_missing=True"
