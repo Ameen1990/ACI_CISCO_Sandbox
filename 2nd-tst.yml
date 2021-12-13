@@ -125,3 +125,20 @@
        - "{{ tenants }}"
        - "bridge_domains"
 
+   - name: create a subnet for Bridge-Domain_webserver
+     tags: subs
+     aci_bd_subnet:
+       name: "{{ item.2.name }}"
+       tenant: "{{ item.0.name }}"
+       bd: "{{ item.1.name }}"
+       gateway_ip: "{{ item.2.name }}"
+       subnet_mask: "{{ item.2.mask }}"
+       scope: "{{ item.2.scope }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
+       - "subnets"
