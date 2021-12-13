@@ -184,7 +184,7 @@
    - name: with_subelements -> loop
      tags: bd
      debug:
-       msg: "{{ item.1.subnets.0.mask }}"
+       msg: "{{ item.1.subnets.0 }}"
      loop: "{{ tenants | subelements('bridge_domains') }}"
 
 
