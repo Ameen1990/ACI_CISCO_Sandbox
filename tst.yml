@@ -160,8 +160,7 @@
    - name: Display bd names
      tags: bd
      debug:
-       var: item
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
+       var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
 
 
  # ?contains(name,''
