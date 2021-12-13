@@ -168,7 +168,7 @@
      debug:
        msg: "{{ item }}"
      with_subelements: 
-       - "{{ tenants }}"
+       - "tenants"
        - "bridge_domains"
 
    
@@ -177,7 +177,7 @@
      debug:
        msg: "{{ item.1.subnets.0.mask }}"
      with_subelements: 
-       - "{{ tenants }}"
+       - "tenants"
        - "bridge_domains"
       
 
