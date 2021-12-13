@@ -46,6 +46,19 @@
        - "bridge_domains"
 
 
+  - name: debugging
+     tags: dbg
+       msg1: "{{ item.0.name }}"
+       msg2: "{{ item.1.name }}"
+       msg3: "{{ item.1.name }}"
+       msg4: "{{ item.1.name }}"
+       msg5: "{{ item.1.mask }}"
+     with_subelements: 
+       - "{{ tenants }}"
+#       - "bridge_domains"
+       - "subnets"
+#       - "skip_missing=True"
+
 
 #   - name: with_subelements -> loop
 #    tags: bd
@@ -120,26 +133,28 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-      # scope: "{{ item.1.scope }}"
+     
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
 
-   - name: create a subnet for Bridge-Domain_webserver
-     tags: subs
-     aci_bd_subnet:
-       name: "{{ item.2.name }}"
-       tenant: "{{ item.0.name }}"
-       bd: "{{ item.1.name }}"
-       gateway_ip: "{{ item.2.name }}"
-       subnet_mask: "{{ item.2.mask }}"
-       scope: "{{ item.2.scope }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     with_subelements: 
-       - "{{ tenants }}"
-       - "bridge_domains"
-       - "bridge_domains.subnets"
-       - "skip_missing=True"
+
+
+#  - name: create a subnet for Bridge-Domain_webserver
+#     tags: subs
+#     aci_bd_subnet:
+#       tenant: "{{ item.0.name }}"
+#       name: "{{ item.2.name }}"
+#       bd: "{{ item.1.name }}"
+#       gateway_ip: "{{ item.2.name }}"
+#       subnet_mask: "{{ item.2.mask }}"
+#       scope: "{{ item.2.scope }}"   
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false    
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
+#       - "subnets"
+#       - "skip_missing=True"
