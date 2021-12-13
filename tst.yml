@@ -161,7 +161,7 @@
      tags: bd
      debug:
        var: item
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains.subnets[?name=='20.0.1.1'].[]') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].subnets[?name=='20.0.1.1']') }}"
 
 
  #  - name: create a Bridge-Domain_webserver
