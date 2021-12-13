@@ -40,7 +40,7 @@
           
    - name: print subnet maks output
      debug:
-       msg: "{{ item.1.subnets.0.mask }}"
+       msg: "{{ item.1.subnets.0.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
