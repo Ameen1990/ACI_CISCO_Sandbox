@@ -49,18 +49,18 @@
    - name: debugging
      tags: dbg
      debug:
-       #msg: "{{ item.0.name }}"
+       msg: "{{ item.0.name }}"
+       msg: "{{ item.1.name }}"
+       msg: "{{ item.1.subnets.name }}"
        #msg: "{{ item.1.name }}"
        #msg: "{{ item.1.name }}"
-       #msg: "{{ item.1.name }}"
-       #msg: "{{ item.1.name }}"
-       var: item
-     loop: "{{ tenants  | json_query('bridge_domains[*].subnets[*].name') }}"
      #with_subelements: 
-#       - "{{ tenants }}"
-#       - "bridge_domains.subnets"
+       - "{{ tenants }}"
+       - "bridge_domains"
 #       - "subnets, skip_missing=True"
-
+#      var: item
+ #    loop: "{{ tenants  | json_query('bridge_domains[*].subnets[*].name') }}"
+ 
 
 #   - name: with_subelements -> loop
 #    tags: bd
