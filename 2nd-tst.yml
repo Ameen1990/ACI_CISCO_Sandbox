@@ -80,7 +80,8 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ tenants  | json_query('tenants[*]') }}"
+     with_items:
+       - "{{ tenants }}"
 
 
    - name: Add BD to ACI
