@@ -70,6 +70,19 @@
 #     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
 
 
+
+   - name: Create a tenant
+     tags: always
+     aci_tenant:
+       tenant: "{{ item.name }}"
+       description: "{{ item.description }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     loop: "{{ tenants  | json_query('tenants[*]') }}"
+
+
    - name: Add BD to ACI
      aci_bd:
        tenant: "{{ item.0.name }}"
@@ -83,3 +96,4 @@
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
+
