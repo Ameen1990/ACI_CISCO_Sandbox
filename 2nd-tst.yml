@@ -84,6 +84,22 @@
        - "{{ tenants }}"
 
 
+ - name: Create ap
+     tags: ap
+     aci_ap:
+       tenant: "{{ item.0.name  }}"
+       name: "{{ item.1.name }}"
+       description: "{{ item.1.description }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
+
+
+
    - name: Add BD to ACI
      aci_bd:
        tenant: "{{ item.0.name }}"
