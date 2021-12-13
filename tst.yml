@@ -172,7 +172,7 @@
      tags: bd
      aci_bd:
        tenant: "{{ tn_name }}"
-       bd: "{{ item) }}"
+       bd: "{{ item }}"
        vrf: "{{ vrf_name }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
