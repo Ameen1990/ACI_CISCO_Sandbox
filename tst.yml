@@ -168,17 +168,17 @@
  #"domain.server[?contains(name,'server1')].port"
 
 
-#   - name: create a Bridge-Domain_webserver
-#     tags: bd
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ item.name }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#      username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#      scope: "{{ item.scope }}"
+   - name: create a Bridge-Domain_webserver
+     tags: bd
+     aci_bd:
+       tenant: "{{ tn_name }}"
+       bd: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
+       vrf: "{{ vrf_name }}"
+       host: "{{ inventory_hostname }}"
+      username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+      scope: "{{ item.scope }}"
 #    loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') }}"
 
 
