@@ -157,11 +157,12 @@
 
 
 
-   - name: Display bd-specific list list
+   - name: Display bd names
      tags: bd
      debug:
-       var: item
+       var: item[0]
      loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+
 
  # ?contains(name,''
  #"domain.server[?contains(name,'server1')].port"
