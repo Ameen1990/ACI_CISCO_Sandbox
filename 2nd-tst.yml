@@ -31,19 +31,19 @@
 
    tasks:
    
-   - name: print with_dict output
-     debug:
-       msg: "{{ item }}"
-     with_subelements: 
-       - "{{ tenants }}"
-       - "bridge_domains"
+#  - name: print with_dict output
+#     debug:
+#       msg: "{{ item }}"
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
           
-   - name: print subnet maks output
-     debug:
-       msg: "{{ item.1.subnets.0.name }}"
-     with_subelements: 
-       - "{{ tenants }}"
-       - "bridge_domains"
+#   - name: print subnet maks output
+#     debug:
+#       msg: "{{ item.1.subnets.0.name }}"
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
 
 
    - name: debugging
@@ -53,11 +53,11 @@
        msg: "{{ item.1.name }}"
        msg: "{{ item.1.name }}"
        msg: "{{ item.1.name }}"
-       msg: "{{ item.2.name }}"
+       msg: "{{ item.1.name }}"
      with_subelements: 
        - "{{ tenants }}"
-       - "bridge_domains"
-       - "subnets, skip_missing=True"
+       - "bridge_domains.subnets"
+#       - "subnets, skip_missing=True"
 
 
 #   - name: with_subelements -> loop
