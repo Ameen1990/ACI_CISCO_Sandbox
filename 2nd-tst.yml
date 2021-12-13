@@ -141,4 +141,5 @@
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
-       - "bridge_domains.subnets"
+       - "subnets"
+       - "skip_missing=True"
