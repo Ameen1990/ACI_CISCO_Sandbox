@@ -160,7 +160,7 @@
    - name: Display bd names
      tags: bd
      debug:
-       var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
+       var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
 
@@ -177,7 +177,7 @@
        password: "{{ pass }}"
        validate_certs: false
      loop:
-       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
+       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
      #  - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
       # - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
 
