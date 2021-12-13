@@ -178,8 +178,8 @@
        validate_certs: false
      loop:
        - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
-       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
-       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
+     #  - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
+      # - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
 
 
 #   - name: create a Bridge-Domain_webserver
