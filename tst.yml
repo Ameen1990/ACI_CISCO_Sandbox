@@ -185,7 +185,7 @@
      tags: bd
      debug:
        msg: "{{ item.1.subnets.0.mask }}"
-     loop: "{{ jsondata | subelements('tenants.bridge_domains') }}"
+     loop: "{{ jsondata | subelements('tenants[*].bridge_domains') }}"
 
 
 
