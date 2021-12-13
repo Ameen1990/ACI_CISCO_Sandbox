@@ -53,9 +53,9 @@
        msg2: "{{ item.1.name }}"
        msg3: "{{ item.1.name }}"
        msg4: "{{ item.1.name }}"
-       msg5: "{{ item.1.mask }}"
+       msg5: "{{ item.1.name }}"
      with_subelements: 
-       - "{{ tenants }}"
+       - "{{ bridge_domains }}"
 #       - "bridge_domains"
        - "subnets"
 #       - "skip_missing=True"
