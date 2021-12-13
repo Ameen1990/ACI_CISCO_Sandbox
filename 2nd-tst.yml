@@ -46,8 +46,9 @@
        - "bridge_domains"
 
 
-  - name: debugging
+   - name: debugging
      tags: dbg
+     debug:
        msg1: "{{ item.0.name }}"
        msg2: "{{ item.1.name }}"
        msg3: "{{ item.1.name }}"
