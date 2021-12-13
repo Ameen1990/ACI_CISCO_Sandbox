@@ -93,7 +93,7 @@
 
 
    - name: Create a tenant
-     tags: always
+     #tags: always
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
@@ -163,21 +163,38 @@
        var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
-
-
-
-   - name: test Bridge-Domains
+   - name: print with_dict output
      tags: bd
-     aci_bd:
-       tenant: "{{ tn_name }}"
-       bd: "{{ item }}"
-       vrf: "{{ vrf_name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop:
-       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+     debug:
+       msg: "{{ item }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
+
+   
+   - name: print subnet maks output
+     tags: bd
+     debug:
+       msg: "{{ item.1.subnets.0.mask }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
+      
+
+
+
+#   - name: test Bridge-Domains
+#     tags: bd
+#     aci_bd:
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ item }}"
+#       vrf: "{{ vrf_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#      validate_certs: false
+#     loop:
+#       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
      #  - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
       # - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
 
