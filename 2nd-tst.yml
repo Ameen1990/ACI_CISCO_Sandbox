@@ -142,7 +142,7 @@
 
 
 
-  - name: create a subnet for Bridge-Domain_webserver
+   - name: create a subnet for Bridge-Domain_webserver
      tags: subs
      aci_bd_subnet:
        tenant: "{{ item.0.name }}"
