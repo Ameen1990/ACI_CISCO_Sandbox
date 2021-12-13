@@ -182,3 +182,28 @@
      loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
+   - name: create a Bridge-Domain_App_server
+     tags: bd
+     aci_bd:
+       tenant: "{{ tn_name }}"
+       bd: "{{ item[1] }}"
+       vrf: "{{ vrf_name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+#      scope: "{{ item.scope }}"
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+
+   - name: create a Bridge-Domain_data-Base
+     tags: bd
+     aci_bd:
+       tenant: "{{ tn_name }}"
+       bd: "{{ item[2] }}"
+       vrf: "{{ vrf_name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+#      scope: "{{ item.scope }}"
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
