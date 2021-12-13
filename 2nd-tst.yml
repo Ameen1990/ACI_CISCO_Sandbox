@@ -51,7 +51,7 @@
      debug:
        msg: "{{ item.0.name }}"
        msg: "{{ item.1.name }}"
-       #msg: "{{ item.1.subnets.name }}"
+       msg: "{{ item.1.subnets.0.name }}"
        #msg: "{{ item.1.name }}"
        #msg: "{{ item.1.name }}"
      with_subelements: 
