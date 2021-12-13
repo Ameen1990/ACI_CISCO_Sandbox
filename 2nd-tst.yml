@@ -53,11 +53,12 @@
        msg: "{{ item.1.name }}"
        msg: "{{ item.1.name }}"
        msg: "{{ item.1.name }}"
-       msg: "{{ item.1.name }}"
+       msg: "{{ item.2.name }}"
      with_subelements: 
        - "{{ tenants }}"
-#       - "bridge_domains"
        - "bridge_domains"
+       - "subnets"
+
 #       - "skip_missing=True"
 
 
@@ -86,7 +87,7 @@
 
 
    - name: Create a tenant
-     tags: always
+     #tags: always
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
