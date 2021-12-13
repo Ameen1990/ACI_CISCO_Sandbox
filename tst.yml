@@ -149,11 +149,11 @@
 #}
 
 
-   - name: Display bd list
-     tags: bd
-     debug:
-       var: item
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') | list }}"
+#   - name: Display bd list
+#     tags: bd
+#     debug:
+#       var: item
+#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') | list }}"
 
 
 
@@ -181,11 +181,11 @@
 #       - "bridge_domains"
       
 
-   - name: with_subelements -> loop
-     tags: bd
-     debug:
-       msg: "{{ item.1.subnets.0.mask }}"
-     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
+#   - name: with_subelements -> loop
+#     tags: bd
+#     debug:
+#       msg: "{{ item.1.subnets.0.mask }}"
+#     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
 
 
 
@@ -242,3 +242,18 @@
 #       password: "{{ pass }}"
 #       validate_certs: false
 #     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+
+
+#   - name: create a subnet for Bridge-Domain_webserver
+#     aci_bd_subnet:
+#       name: "{{ sub_1 }}"
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ bd_1 }}"
+#       gateway_ip: 20.0.1.1
+#       subnet_mask: 24
+#       scope:
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+
