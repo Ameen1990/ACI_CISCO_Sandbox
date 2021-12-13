@@ -25,235 +25,38 @@
        unsafe: yes
 
 
+  vars_files:
+      - /root/ACI_Objects_Creator/files/source.yml
+
+
    tasks:
-   - name: Display the JSON file content
-     tags: always
-     shell: cat /root/ACI_Objects_Creator/files/source.json
-     register: result
-
-   - name: save the Json data to a Variable as a Fact
-     tags: always
-     set_fact:
-       jsondata: "{{ result.stdout | from_json }}"
-
-
-   - name: set tenant name
-     tags: always
-     set_fact:
-       tn_name: "{{ item.name }}"
-     loop: "{{ jsondata | json_query('tenants[*]') }}"
- 
-
-   - name: set vrf name
-     tags: always
-     set_fact:
-       vrf_name: "{{ item.name }}"
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
-
-
-
-   - name: Print Tenant name
-     debug:
-       var: tn_name
-       
-   - name: Print Tenant  desc
-     debug:
-       var: tn_desc
    
-
-
-   - name: Display ap list
-     tags: ap
-     set_fact:
-       ap_name: item
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
-
-   - name: Display ap name field
-     tags: ap
+   - name: print with_dict output
+        ansible.builtin.debug:
+          msg: "{{ item }}"
+        with_subelements: 
+          - "{{ tenants }}"
+          - "bridge_domains"
+          
+   - name: print subnet maks output
      debug:
-       var: ap_name
-     
+       msg: "{{ item.1.subnets.0.mask }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
+      
 
-# es funktioniert
-#   - name: Display ap list
-#     tags: ap
-#     debug:
-#       var: item
-#     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[].name') }}"
-
-
-#   - name: set tenants desription
-#     set_fact:
-#       tn_desc: "{{ jsondata | json_query(jmesquery) }}"
-#     vars:
-#       jmesquery: 'tenants[*].description'
-
-
-
-
-
-   - name: Create a tenant
-     #tags: always
-     aci_tenant:
-       tenant: "{{ item.name }}"
-       description: "{{ item.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*]') }}"
-
-
-   - name: Create ap
-     tags: ap
-     aci_ap:
-       tenant: "{{ tn_name }}"
-       name: "{{ ap.name }}"
-       description: "{{ ap.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-
-     loop: "{{ jsondata  | json_query('tenants[*].application_profiles[]') }}"
-     loop_control:
-      loop_var: ap
-
-
-
-   - name: Display vrf list
-     tags: vrf
-     debug:
-       var: item
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
-
-
-   - name: create VRF
-     tags: vrf
-     aci_vrf:
-       vrf: "{{ item.name }}"
-       tenant: "{{ tn_name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].vrfs[]') }}"
-
-
-# Output
-# ok: [{{ apic_ip }}] => (item={u'name': u'datacenter'}) => {
-#    "ansible_loop_var": "item",
-#    "item": {
-#        "name": "datacenter"
-#    }
-#}
-
-
-   - name: Display bd list
-     tags: bd
-     debug:
-       var: item
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') | list }}"
-
-
-
- #  - name: Display bd names
- #    tags: bd
- #    debug:
- #      var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
-
-
-#   - name: print with_dict output
+#   - name: Display bd list
 #     tags: bd
 #     debug:
-#       msg: "{{ item }}"
-#     with_subelements: 
-#       - "tenants"
-#       - "bridge_domains"
+#       var: item
+#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') | list }}"
+      
 
-   
-#   - name: print subnet maks output
+#  - name: with_subelements -> loop
 #     tags: bd
 #     debug:
 #       msg: "{{ item.1.subnets.0.mask }}"
-#     with_subelements: 
-#       - "tenants"
-#       - "bridge_domains"
-      
+#     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
 
-   - name: with_subelements -> loop
-     tags: bd
-     debug:
-       msg: "{{ item.1.subnets.0.mask }}"
-     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
-
-
-
-#   - name: test Bridge-Domains
-#     tags: bd
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ item }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#      validate_certs: false
-#     loop:
-#       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
-     #  - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
-      # - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
-
-
-#   - name: create a Bridge-Domain_webserver
-#    tags: bd
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ item[0] }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
-
-
-#   - name: create a Bridge-Domain_App_server
-#     tags: bd
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ item[1] }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
-
-
-#   - name: create a Bridge-Domain_data-Base
-#     tags: bd
-#     aci_bd:
-#       tenant: "{{ tn_name }}"
-#       bd: "{{ item[2] }}"
-#       vrf: "{{ vrf_name }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
-
-
-   - name: create a subnet for Bridge-Domain_webserver
-     aci_bd_subnet:
-       name: "{{ sub_1 }}"
-       tenant: "{{ tn_name }}"
-       bd: "{{ bd_1 }}"
-       gateway_ip: 20.0.1.1
-       subnet_mask: 24
-       scope:
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
 
