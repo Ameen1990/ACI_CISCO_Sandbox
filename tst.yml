@@ -157,29 +157,35 @@
 
 
 
-   - name: Display bd names
-     tags: bd
-     debug:
-       var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+ #  - name: Display bd names
+ #    tags: bd
+ #    debug:
+ #      var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
-   - name: print with_dict output
-     tags: bd
-     debug:
-       msg: "{{ item }}"
-     with_subelements: 
-       - "tenants"
-       - "bridge_domains"
+#   - name: print with_dict output
+#     tags: bd
+#     debug:
+#       msg: "{{ item }}"
+#     with_subelements: 
+#       - "tenants"
+#       - "bridge_domains"
 
    
-   - name: print subnet maks output
+#   - name: print subnet maks output
+#     tags: bd
+#     debug:
+#       msg: "{{ item.1.subnets.0.mask }}"
+#     with_subelements: 
+#       - "tenants"
+#       - "bridge_domains"
+      
+
+   - name: with_subelements -> loop
      tags: bd
      debug:
-       msg: "{{ item.1.subnets.0.mask }}"
-     with_subelements: 
-       - "tenants"
-       - "bridge_domains"
-      
+       msg: "{{ item.0.name }} - {{ item.1.subnets.0.mask  }}"
+     loop: "{{ jsondata | subelements('bridge_domains') }}"
 
 
 
