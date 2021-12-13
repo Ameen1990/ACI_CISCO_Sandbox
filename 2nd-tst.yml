@@ -79,7 +79,7 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-       scope: "{{ item.1.scope }}"
+      # scope: "{{ item.1.scope }}"
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
