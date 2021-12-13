@@ -47,11 +47,13 @@
 
 
 
-   - name: with_subelements -> loop
-     tags: bd
-     debug:
-       msg: "{{ item.1.subnets.0.mask }}"
-     loop: "{{ tenants | subelements('bridge_domains') }}"
+#   - name: with_subelements -> loop
+#    tags: bd
+#     debug:
+#       msg: "{{ item.1.subnets.0.mask }}"
+#     loop: 
+#       - "{{ tenants | subelements('bridge_domains') }}"
+#       - "{{ tenants | subelements('bridge_domains.subnets') }}"
 
 
 #   - name: Display bd list
@@ -68,3 +70,16 @@
 #     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
 
 
+   - name: Add BD to ACI
+     aci_bd:
+       tenant: "{{ item.0.name }}"
+       bd: "{{ item.1.name }}"
+       vrf: "{{ item.1.vrf }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+       scope: "{{ item.1.scope }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
