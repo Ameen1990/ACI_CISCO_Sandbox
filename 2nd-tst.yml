@@ -57,9 +57,7 @@
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
-       - "subnets"
-
-#       - "skip_missing=True"
+       - "subnets, skip_missing=True"
 
 
 #   - name: with_subelements -> loop
