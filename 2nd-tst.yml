@@ -32,7 +32,7 @@
    tasks:
    
    - name: print with_dict output
-     ansible.builtin.debug:
+     debug:
        msg: "{{ item }}"
      with_subelements: 
        - "{{ tenants }}"
@@ -44,7 +44,15 @@
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
-      
+
+
+
+   - name: with_subelements -> loop
+     tags: bd
+     debug:
+       msg: "{{ item.1.subnets.0.mask }}"
+     loop: "{{ tenants | subelements('bridge_domains') }}"
+
 
 #   - name: Display bd list
 #     tags: bd
