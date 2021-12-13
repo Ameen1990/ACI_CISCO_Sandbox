@@ -160,8 +160,8 @@
    - name: Display bd names
      tags: bd
      debug:
-       var: item[0]
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+       var: item
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
 
 
  # ?contains(name,''
@@ -178,7 +178,6 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-#      scope: "{{ item.scope }}"
      loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
@@ -192,8 +191,8 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-#      scope: "{{ item.scope }}"
      loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+
 
    - name: create a Bridge-Domain_data-Base
      tags: bd
@@ -205,5 +204,4 @@
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-#      scope: "{{ item.scope }}"
      loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
