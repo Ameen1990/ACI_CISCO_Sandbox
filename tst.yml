@@ -179,6 +179,6 @@
        password: "{{ pass }}"
        validate_certs: false
 #      scope: "{{ item.scope }}"
-    loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
