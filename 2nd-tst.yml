@@ -55,7 +55,7 @@
        #msg: "{{ item.1.name }}"
        #msg: "{{ item.1.name }}"
        var: item
-     loop: "{{ tenants  | json_query('bridge_domains[*].subnets[]') }}"
+     loop: "{{ tenants  | json_query('bridge_domains[*].subnets') }}"
      #with_subelements: 
 #       - "{{ tenants }}"
 #       - "bridge_domains.subnets"
