@@ -184,8 +184,8 @@
    - name: with_subelements -> loop
      tags: bd
      debug:
-       msg: "{{ item.0.name }} - {{ item.1.subnets.0.mask  }}"
-     loop: "{{ jsondata | subelements('bridge_domains') }}"
+       msg: "{{ item.1.subnets.0.mask }}"
+     loop: "{{ tenants | subelements('bridge_domains') }}"
 
 
 
