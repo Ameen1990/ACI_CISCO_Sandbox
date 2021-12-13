@@ -32,11 +32,11 @@
    tasks:
    
    - name: print with_dict output
-        ansible.builtin.debug:
-          msg: "{{ item }}"
-        with_subelements: 
-          - "{{ tenants }}"
-          - "bridge_domains"
+     ansible.builtin.debug:
+       msg: "{{ item }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "bridge_domains"
           
    - name: print subnet maks output
      debug:
