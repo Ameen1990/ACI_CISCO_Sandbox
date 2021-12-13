@@ -163,44 +163,59 @@
        var: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
 
 
- # ?contains(name,''
- #"domain.server[?contains(name,'server1')].port"
 
 
-   - name: create a Bridge-Domain_webserver
+
+   - name: test Bridge-Domains
      tags: bd
      aci_bd:
        tenant: "{{ tn_name }}"
-       bd: "{{ item[0] }}"
+       bd: "{{ item }}"
        vrf: "{{ vrf_name }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
        validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+     loop:
+       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[0]') }}"
+       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[1]') }}"
+       - "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name[2]') }}"
 
 
-   - name: create a Bridge-Domain_App_server
-     tags: bd
-     aci_bd:
-       tenant: "{{ tn_name }}"
-       bd: "{{ item[1] }}"
-       vrf: "{{ vrf_name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+#   - name: create a Bridge-Domain_webserver
+#    tags: bd
+#     aci_bd:
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ item[0] }}"
+#       vrf: "{{ vrf_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
 
 
-   - name: create a Bridge-Domain_data-Base
-     tags: bd
-     aci_bd:
-       tenant: "{{ tn_name }}"
-       bd: "{{ item[2] }}"
-       vrf: "{{ vrf_name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+#   - name: create a Bridge-Domain_App_server
+#     tags: bd
+#     aci_bd:
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ item[1] }}"
+#       vrf: "{{ vrf_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
+
+
+#   - name: create a Bridge-Domain_data-Base
+#     tags: bd
+#     aci_bd:
+#       tenant: "{{ tn_name }}"
+#       bd: "{{ item[2] }}"
+#       vrf: "{{ vrf_name }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[*].name') }}"
