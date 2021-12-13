@@ -98,7 +98,18 @@
        - "{{ tenants }}"
        - "application_profiles"
 
-
+   - name: create VRF
+     tags: vrf
+     aci_vrf:
+       vrf: "{{ item.1.name }}"
+       tenant: "{{ item.0.name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "vrfs"
 
    - name: Add BD to ACI
      aci_bd:
