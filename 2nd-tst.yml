@@ -84,7 +84,7 @@
        - "{{ tenants }}"
 
 
- - name: Create ap
+   - name: Create ap
      tags: ap
      aci_ap:
        tenant: "{{ item.0.name  }}"
