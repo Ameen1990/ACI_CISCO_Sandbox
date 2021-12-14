@@ -72,7 +72,7 @@
        - "vrfs"
 
 
-   - name: Add BD to ACI
+   - name: Create three Bridge-Domains
      tags: bd
      aci_bd:
        tenant: "{{ item.0.name }}"
@@ -85,7 +85,7 @@
 
 
 
-   - name: create a subnet for Bridge-Domain_webserver
+   - name: Create three Subnets
      tags: subs
      aci_bd_subnet:
        tenant: "{{ item.0.name }}"
@@ -140,7 +140,7 @@
        - "application_profiles"
 
 
-   - name: Create our Three Contracts 
+   - name: Create three Contracts 
      tags: cont
      aci_contract:
        tenant: "{{ item.0.name }}"     
@@ -259,7 +259,7 @@
        - "vrfs"
 
 
-   - name: Create External_EPG
+   - name: Create External_EPG (EPG_4)
      tags: L3,extepg
      aci_l3out_extepg:
        extepg: "{{ epg_4 }}"
