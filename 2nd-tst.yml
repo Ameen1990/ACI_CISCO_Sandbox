@@ -230,7 +230,7 @@
 
 
 
-   - name: Configure Contract (C_internent) EPG Provider
+   - name: Configure EPG_Web_Server Contract wing as provider
      tags: cont
      aci_epg_to_contract:
        tenant: "{{ item.0.name  }}"
@@ -251,7 +251,7 @@
      tags: dbg3
      debug:
        #msg: "{{ item.1.epgs.0.contracts.0.type }}"
-       msg: "{{ item.1.epgs.2.name }}"
+       msg: "{{ item.1.epgs.1.contracts.2.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
