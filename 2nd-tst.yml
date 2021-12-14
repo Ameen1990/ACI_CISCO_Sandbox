@@ -258,7 +258,7 @@
      tags: dbg2
      debug:
        #tenant: "{{ item.0.name }}"
-       msg: "{{ item.1.subject.filter }}"
+       msg: "{{ item.1.subject.0.filter }}"
        #scope: tenant
      with_subelements: 
        - "{{ tenants }}"
