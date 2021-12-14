@@ -167,7 +167,7 @@
        ap: "{{ item.0.application_profiles.name }}"
        epg: "{{ item.1.epg.0.name }}"
        #description: "Description of EPG_Web"
-       bd: "{{ item.1.epg.bd }}"
+       #bd: "{{ item.1.epg.bd }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
