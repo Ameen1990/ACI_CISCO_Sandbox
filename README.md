@@ -55,5 +55,5 @@ pass: C1sco12345
 Notes: -
 - Those credentials are fixed for all reservable ACI simulators.
 - Make sure that the switches (leaves and spine) are already there, if not, then add them manually.
-- The process in triggerd from "final.yml" Plyabook.
+- The process in triggered from "final.yml" Playbook.
 - Screenshots are attached in Issues section.
