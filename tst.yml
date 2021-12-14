@@ -10,13 +10,19 @@
      epg_4: 'External_EPG'
      L3_domain: 'ISR3945'
 
-     &credentials:
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-
+     
+   vars:
+     &credentials
+     host: "{{ inventory_hostname }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     validate_certs: false
+     
+     
+    
        
+
+
    vars_prompt:
      - name: "apic_ip"
        prompt: "Enter APIC IP"
@@ -36,8 +42,6 @@
 
    vars_files:
      - coding_challenge_ansible.yml
-
-
 
    tasks:
    
