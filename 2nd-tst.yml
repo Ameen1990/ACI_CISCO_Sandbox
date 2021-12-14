@@ -140,8 +140,8 @@
      aci_epg:
        tenant: "{{ item.0.name }}"
        ap: "{{ item.0.application_profiles.0.name }}"
-       epg: "{{ item.1.epg.0.name }}"
-       bd: "{{ item.1.epg.0.bd }}"
+       epg: "{{ item.1.epgs.0.name }}"
+       bd: "{{ item.1.epgs.0.bd }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
