@@ -61,6 +61,19 @@
 
 
 
+
+#   - name: Create EPG_Web_Server
+#     tags: dbg
+#     debug:
+       #msg: "{{ item.0.name }}"
+       #msg: "{{ item.1.application_profiles.0.epg }}"
+       #msg: "{{ item.1.epgs.0.name }}"
+#       msg: "{{ item.1.epgs.1.name }}"
+#    with_subelements: 
+#      - "{{ tenants }}"
+#       - "application_profiles"
+  
+
    - name: Create a tenant
      #tags: always
      aci_tenant:
@@ -135,7 +148,7 @@
        - "bridge_domains"
 
 
-   - name: Create EPGs
+   - name: Create EPG_Web_Server
      tags: epg
      aci_epg:
        tenant: "{{ item.0.name }}"
@@ -152,16 +165,34 @@
 
 
 
-   - name: Create EPG_Web_Server
-     tags: dbg
-     debug:
-       #msg: "{{ item.0.name }}"
-       #msg: "{{ item.1.application_profiles.0.epg }}"
-       #msg: "{{ item.1.epgs.0.name }}"
-       msg: "{{ item.1.epgs.1.name }}"
+   - name: Create EPG_App_Server
+     tags: epg
+     aci_epg:
+       tenant: "{{ item.0.name }}"
+       ap: "{{ item.1.name }}"
+       epg: "{{ item.1.epgs.1.name }}"
+       bd: "{{ item.1.epgs.1.bd }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
-  
 
+
+   - name: Create EPGs
+     tags: epg
+     aci_epg:
+       tenant: "{{ item.0.name }}"
+       ap: "{{ item.1.name }}"
+       epg: "{{ item.1.epgs.2.name }}"
+       bd: "{{ item.1.epgs.2.bd }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
 
