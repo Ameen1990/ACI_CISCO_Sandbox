@@ -230,28 +230,28 @@
 
 
 
-#   - name: Configure Contract_1 EPG Provider
-#     tags: cont
-#     aci_epg_to_contract:
-#       tenant: "{{ tn_name }}"
-#       ap: "{{ ap_name }}"
-#       epg: "{{ epg_2 }}"
-#       contract:  "{{ cont_1 }}"
-#       contract_type: provider
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     with_subelements: 
-#       - "{{ tenants }}"
-#       - "contracts"
+   - name: Configure Contract (C_internent) EPG Provider
+     tags: cont
+     aci_epg_to_contract:
+       tenant: "{{ item.0.name  }}"
+       ap: "{{ item.1.name }}"
+       epg: "{{ item.1.epgs.0.name }}"
+       contract:  "{{ item.1.epgs.0.contracts.0.name }}"
+       contract_type: "{{ item.1.epgs.0.contracts.0.type }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
 
 
    - name: Contract-EPG Wings 
      tags: dbg3
      debug:
        #msg: "{{ item.1.epgs.0.contracts.0.type }}"
-       msg: "{{ item.1.epgs.1.contracts.1.name }}"
+       msg: "{{ item.1.epgs.0.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
