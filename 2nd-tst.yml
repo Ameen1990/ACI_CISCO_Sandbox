@@ -57,32 +57,6 @@
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
-#       - "subnets, skip_missing=True"
-#      var: item
- #    loop: "{{ tenants  | json_query('bridge_domains[*].subnets[*].name') }}"
- 
-
-#   - name: with_subelements -> loop
-#    tags: bd
-#     debug:
-#       msg: "{{ item.1.subnets.0.mask }}"
-#     loop: 
-#       - "{{ tenants | subelements('bridge_domains') }}"
-#       - "{{ tenants | subelements('bridge_domains.subnets') }}"
-
-
-#   - name: Display bd list
-#     tags: bd
-#     debug:
-#       var: item
-#     loop: "{{ jsondata  | json_query('tenants[*].bridge_domains[]') | list }}"
-      
-
-#  - name: with_subelements -> loop
-#     tags: bd
-#     debug:
-#       msg: "{{ item.1.subnets.0.mask }}"
-#     loop: "{{ jsondata | subelements('bridge_domains[]') }}"
 
 
 
@@ -160,19 +134,32 @@
        - "bridge_domains"
 
 
-   - name: Create EPG_Web_Server
-     tags: epg
-     aci_epg:
-       tenant: "{{ item.0.name }}"
-       ap: "{{ item.0.application_profiles.name }}"
-       epg: "{{ item.1.epg.0.name }}"
-       #description: "Description of EPG_Web"
-       #bd: "{{ item.1.epg.bd }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     with_subelements: 
-       - "{{ tenants }}"
-       - "bridge_domains"
+#   - name: Create EPG_Web_Server
+#     tags: epg
+#     aci_epg:
+#       tenant: "{{ item.0.name }}"
+#       ap: "{{ item.0.application_profiles.name }}"
+#       epg: "{{ item.1.epg.0.name }}"
+#       #description: "Description of EPG_Web"
+#       #bd: "{{ item.1.epg.bd }}"
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
+
+       
+
+#   - name: Create EPG_Web_Server
+#     tags: epg
+#     debug:
+#       tenant: "{{ item.0.name }}"
+#       ap: "{{ item.0.application_profiles.name }}"
+#       epg: "{{ item.1.epg.0.name }}"
+#       #bd: "{{ item.1.epg.bd }}"
+#    with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
   
