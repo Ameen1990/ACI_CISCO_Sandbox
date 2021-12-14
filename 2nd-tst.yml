@@ -213,6 +213,22 @@
 
 
 
+   - name: Add a new contract subject
+     tags: subj
+     aci_contract_subject:
+       tenant: "{{ item.0.name }}"
+       contract: "{{ item.1.name }}"
+       subject: "{{ item.1.subject.0.name }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "contracts"
+
+
+
 
 #   - name: Configure Contract_1 EPG Provider
 #     tags: cont
@@ -231,26 +247,11 @@
 #       - "contracts"
 
 
-   - name: Add a new contract subject
-     tags: subj
-     aci_contract_subject:
-       tenant: "{{ item.0.name }}"
-       contract: "{{ item.1.name }}"
-       subject: "{{ item.1.subject.0.name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
-     with_subelements: 
-       - "{{ tenants }}"
-       - "contracts"
-
-
    - name: Contract-EPG Wings 
      tags: dbg3
      debug:
        #msg: "{{ item.1.epgs.0.contracts.0.type }}"
-       msg: "{{ item.1.epgs.0.contracts.0.name }}"
+       msg: "{{ item.1.epgs.contracts.0.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
