@@ -50,6 +50,6 @@
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
-       <<: *credentials
+       *credentials
      with_items:
        - "{{ tenants }}"
