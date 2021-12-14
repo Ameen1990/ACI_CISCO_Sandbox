@@ -158,7 +158,7 @@
        msg: "{{ item.0.name }}"
        #msg: "{{ item.1.application_profiles.0.epg }}"
        msg: "{{ item.1.epgs.0.name }}"
-       #bd: "{{ item.1.epg.bd }}"
+       msg: "{{ item.1.epgs.0.bd }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
