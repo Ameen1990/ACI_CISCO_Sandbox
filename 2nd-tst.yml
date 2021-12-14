@@ -247,8 +247,9 @@
 
    - name: Contract names
      tags: cont
+     debug:
        #tenant: "{{ item.0.name }}"
-       msg: "{{ item.1.name }}"
+       contract: "{{ item.1.name }}"
        #scope: tenant
      with_subelements: 
        - "{{ tenants }}"
