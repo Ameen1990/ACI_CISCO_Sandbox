@@ -51,8 +51,6 @@
          validate_certs: false
      
 
-      msg: this is a test
-
    - name: Create a tenant
      tags: always
      aci_tenant:
