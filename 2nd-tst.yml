@@ -181,7 +181,7 @@
        - "application_profiles"
 
 
-   - name: Create EPGs
+   - name: Create EPG_Data_Base
      tags: epg
      aci_epg:
        tenant: "{{ item.0.name }}"
@@ -196,3 +196,60 @@
        - "{{ tenants }}"
        - "application_profiles"
 
+
+  # - name: Contract between (App_Server & Web_Server)
+  #   tags: cont
+  #   aci_contract:
+  #     contract: "{{ cont_1 }}"
+  #     tenant: "{{ tn_name }}"
+  #     description: Communication between App_Server & Web-servers
+  #     scope: tenant
+  #     host: "{{ inventory_hostname }}"
+  #     username: "{{ user }}"
+  #     password: "{{ pass }}"
+  #     validate_certs: false
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "contracts"
+
+
+
+#   - name: Configure Contract_1 EPG Provider
+#     tags: cont
+#     aci_epg_to_contract:
+#       tenant: "{{ tn_name }}"
+#       ap: "{{ ap_name }}"
+#       epg: "{{ epg_2 }}"
+#       contract:  "{{ cont_1 }}"
+#       contract_type: provider
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "contracts"
+
+#   - name: Add a new contract subject
+#     aci_contract_subject:
+#       tenant: 
+#       contract: 
+#       subject: 
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "contracts"
+
+
+
+   - name: Contract names
+     tags: cont
+       tenant: "{{ item.0.name }}"
+       contract: "{{ item.1.name }}"
+       scope: tenant
+     with_subelements: 
+       - "{{ tenants }}"
+       - "contracts"
