@@ -376,3 +376,16 @@
        - "application_profiles"
 
 
+
+   - name: Add vPC Protection Group
+     tags: vpc
+     aci_switch_policy_vpc_protection_group:
+       protection_group: vpc_group
+       protection_group_id: 6
+       switch_1_id: 101
+       switch_2_id: 102
+       # Switches 101 & 102 are already pre-discovered by APIC
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
