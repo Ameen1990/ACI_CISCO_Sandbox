@@ -12,8 +12,7 @@
 
      
    vars:
-     cred:
-       &credentials
+     cred: &credentials
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
