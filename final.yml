@@ -10,7 +10,6 @@
      epg_4: 'External_EPG'
      L3_domain: 'ISR3945'
 
-
    vars_prompt:
      - name: "apic_ip"
        prompt: "Enter APIC IP"
@@ -28,24 +27,25 @@
        private: yes
        unsafe: yes
 
-
    vars_files:
      - coding_challenge_ansible.yml
 
-
    tasks:
    
-  
-
+   - name: Set Credentials
+     set_fact:
+       cred: &cred
+         host: "{{ inventory_hostname }}"
+         username: "{{ user }}"
+         password: "{{ pass }}"
+         validate_certs: false
+     
    - name: Create a tenant
      tags: always
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_items:
        - "{{ tenants }}"
 
@@ -56,10 +56,7 @@
        tenant: "{{ item.0.name  }}"
        name: "{{ item.1.name }}"
        description: "{{ item.1.description }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -69,10 +66,7 @@
      aci_vrf:
        vrf: "{{ item.1.name }}"
        tenant: "{{ item.0.name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "vrfs"
@@ -84,10 +78,7 @@
        tenant: "{{ item.0.name }}"
        bd: "{{ item.1.name }}"
        vrf: "{{ item.1.vrf }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false    
+       <<: *cred  
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
@@ -103,10 +94,7 @@
        gateway_ip: "{{ item.1.subnets.0.name }}"
        subnet_mask: "{{ item.1.subnets.0.mask }}"
        scope: "{{ item.1.subnets.0.scope }}"   
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false    
+       <<: *cred 
      with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
@@ -119,10 +107,7 @@
        ap: "{{ item.1.name }}"
        epg: "{{ item.1.epgs.0.name }}"
        bd: "{{ item.1.epgs.0.bd }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -136,10 +121,7 @@
        ap: "{{ item.1.name }}"
        epg: "{{ item.1.epgs.1.name }}"
        bd: "{{ item.1.epgs.1.bd }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -152,10 +134,7 @@
        ap: "{{ item.1.name }}"
        epg: "{{ item.1.epgs.2.name }}"
        bd: "{{ item.1.epgs.2.bd }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -167,10 +146,7 @@
        tenant: "{{ item.0.name }}"     
        contract: "{{ item.1.name }}"
        scope: "{{ item.1.scope }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "contracts"
@@ -183,10 +159,7 @@
        tenant: "{{ item.0.name }}"
        contract: "{{ item.1.name }}"
        subject: "{{ item.1.subject.0.name }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "contracts"
@@ -202,10 +175,7 @@
        epg: "{{ item.1.epgs.0.name }}"
        contract:  "{{ item.1.epgs.0.contracts.0.name }}"
        contract_type: "{{ item.1.epgs.0.contracts.0.type }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -219,10 +189,7 @@
        epg: "{{ item.1.epgs.0.name }}"
        contract:  "{{ item.1.epgs.0.contracts.1.name }}"
        contract_type: "{{ item.1.epgs.0.contracts.1.type }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -237,10 +204,7 @@
        epg: "{{ item.1.epgs.1.name }}"
        contract:  "{{ item.1.epgs.1.contracts.0.name }}"
        contract_type: "{{ item.1.epgs.1.contracts.0.type }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -256,10 +220,7 @@
        epg: "{{ item.1.epgs.1.name }}"
        contract:  "{{ item.1.epgs.1.contracts.1.name }}"
        contract_type: "{{ item.1.epgs.1.contracts.1.type }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -275,10 +236,7 @@
        epg: "{{ item.1.epgs.2.name }}"
        contract:  "{{ item.1.epgs.2.contracts.0.name }}"
        contract_type: "{{ item.1.epgs.2.contracts.0.type }}"
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
@@ -295,10 +253,7 @@
        vrf: "{{ item.1.name }}"
        l3protocol: ospf
        route_control: export
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "vrfs"
@@ -311,10 +266,7 @@
        tenant: "{{ item.name  }}"
        l3out: "{{ l3out_name }}" 
        description: External EPG which to be associated with the L3-out
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_items:
        - "{{ tenants }}"
 
@@ -327,16 +279,16 @@
        l3out: "{{ l3out_name }}" 
        contract:  "{{ item.1.epgs.0.contracts.0.name }}"
        contract_type: consumer
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       <<: *cred
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
 
 
 
+
+# The below configuration will fail if the nodes are already pr-econfigured to be part of VPC group 
+       
    - name: Add vPC Protection Group
      tags: vpc
      aci_switch_policy_vpc_protection_group:
@@ -344,8 +296,5 @@
        protection_group_id: 6
        switch_1_id: 101
        switch_2_id: 102
-       # Switches 101 & 102 are already pre-discovered by APIC
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+       # Switches 101 & 102 are already pre-discovered by APIC 
+       <<: *cred
