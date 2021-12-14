@@ -246,7 +246,7 @@
        - "contracts"
 
 
-  - name: Contract-EPG Wings 
+   - name: Contract-EPG Wings 
      tags: dbg3
      debug:
        msg: "{{ item.1.epgs.contracts.type }}"
