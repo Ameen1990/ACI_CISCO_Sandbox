@@ -249,7 +249,7 @@
    - name: Contract-EPG Wings 
      tags: dbg3
      debug:
-       msg: "{{ item.1.epgs.0.contracts.type }}"
+       msg: "{{ item.1.epgs.0.contracts.0.type }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
