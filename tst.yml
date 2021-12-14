@@ -12,7 +12,7 @@
 
      
    vars:
-     cred: &credentials
+     cred: &cred
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
@@ -47,6 +47,6 @@
      aci_tenant:
        tenant: "{{ item.name }}"
        description: "{{ item.description }}"
-       <<: *credentials
+       <<: *cred
      with_items:
        - "{{ tenants }}"
