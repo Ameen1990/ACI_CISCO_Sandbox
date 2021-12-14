@@ -156,10 +156,10 @@
      tags: epg
      debug:
        msg: "{{ item.0.name }}"
-       msg: "{{ item.0.application_profiles.0.name }}"
-       msg: "{{ item.1.epg.0.name }}"
+       #msg: "{{ item.1.application_profiles.0.epg }}"
+       msg: "{{ item.1.epgs.name }}"
        #bd: "{{ item.1.epg.bd }}"
      with_subelements: 
        - "{{ tenants }}"
-       - "bridge_domains"
+       - "application_profiles"
   
