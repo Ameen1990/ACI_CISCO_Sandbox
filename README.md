@@ -41,3 +41,29 @@ Ansible must be installed locally.
 
 Python3 is also a must.
 
+Another solution is presented here:-
+
+https://devnetsandbox.cisco.com/
+
+log in with CISCo ID or Gmail account.
+
+"Reservable ACI similator" was used where one can book it (max 6 hours) with total dedication to the user.
+
+it's a recommended solution for testing purposes only , coz you will loose your configuration after the 6 hours limit.
+
+Prerequsites: -
+
+Download cisco AnyConnect VPN client from here: https://developer.cisco.com/site/sandbox/anyconnect/ or from Microsfot Store.
+
+After clicking reserve, you will recieve two emails, the second one has the VPN credentials.
+
+Once you logged in with VPN credentials, your APIC is availabe at: -
+
+https://10.10.20.14
+
+user: admin
+
+pass: C1sco12345
+
+Notes: -
+- Those credentials are fixed for all reservable ACI simulators.
