@@ -6,20 +6,7 @@
 Creating an ansible playbook that reads the following objects from the supplied variable file and
 
 
-creates them in the Cisco Sandbox APIC:
-
-
-• Tenants
-
-• Application profiles
-
-• End point groups
-
-• Bridge domains
-
-• Contracts
-
-• VRFs
+creates them in the Cisco Sandbox APIC:• Tenants, • Application profiles, • End point groups,  • Bridge domains,  • Contracts,  • VRFs,  etc.
 
 
 The Cisco Sandbox APIC is an online testing environment hosted by Cisco.
@@ -41,7 +28,7 @@ Ansible must be installed locally.
 
 Python3 is also a must.
 
-Another solution is presented here:-
+Another Sandbox login solution is presented here:-
 
 https://devnetsandbox.cisco.com/
 
@@ -68,3 +55,5 @@ pass: C1sco12345
 Notes: -
 - Those credentials are fixed for all reservable ACI simulators.
 - Make sure that the switches (leaves and spine) are already there, if not, then add them manually.
+- The process in triggerd from "final.yml" Plyabook.
+- Screenshots are attached in Issues section.
