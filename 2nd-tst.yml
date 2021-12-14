@@ -159,7 +159,7 @@
        msg: "{{ item.0.application_profiles.name }}"
        #msg: "{{ item.1.epg.0.name }}"
        #bd: "{{ item.1.epg.bd }}"
-    with_subelements: 
+     with_subelements: 
        - "{{ tenants }}"
        - "bridge_domains"
   
