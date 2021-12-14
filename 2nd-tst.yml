@@ -197,7 +197,7 @@
        - "application_profiles"
 
 
-   - name: create Contracts
+   - name: Create our Three Contracts 
      tags: cont
      aci_contract:
        tenant: "{{ item.0.name }}"     
@@ -238,6 +238,7 @@
 #       - "{{ tenants }}"
 #       - "contracts"
 
+
 #   - name: Add a new contract subject
 #     aci_contract_subject:
 #       tenant: 
@@ -253,4 +254,13 @@
 
 
 
+   - name: Contract names
+     tags: dbg2
+     debug:
+       #tenant: "{{ item.0.name }}"
+       msg: "{{ item.1.subject.filter }}"
+       #scope: tenant
+     with_subelements: 
+       - "{{ tenants }}"
+       - "contracts"
  
