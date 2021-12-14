@@ -251,7 +251,7 @@
      tags: dbg3
      debug:
        #msg: "{{ item.1.epgs.0.contracts.0.type }}"
-       msg: "{{ item.1.epgs.1.contracts.0.name }}"
+       msg: "{{ item.1.epgs.1.contracts.1.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
