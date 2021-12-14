@@ -244,7 +244,7 @@
      aci_contract_subject:
        tenant: "{{ item.0.name }}"
        contract: "{{ item.1.name }}"
-       subject: "{{ item.1.subject.0.filter }}"
+       subject: "{{ item.1.subject.0.name }}"
        host: "{{ inventory_hostname }}"
        username: "{{ user }}"
        password: "{{ pass }}"
