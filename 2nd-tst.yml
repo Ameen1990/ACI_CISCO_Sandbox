@@ -47,30 +47,17 @@
 #       - "bridge_domains"
 
 
-   - name: debugging
-     tags: dbg
-     debug:
-       #msg: "{{ item.0.name }}"
-       #msg: "{{ item.1.name }}"
-       msg: "{{ item.1.subnets.0.name }}"
-       #msg: "{{ item.1.name }}"
-       #msg: "{{ item.1.name }}"
-     with_subelements: 
-       - "{{ tenants }}"
-       - "bridge_domains"
-
-
-   - name: Create EPG_Web_Server
-     tags: dbg
-     debug:
-       #msg: "{{ item.0.name }}"
-       #msg: "{{ item.1.application_profiles.0.epg }}"
-       #msg: "{{ item.1.epgs.0.name }}"
-       msg: "{{ item.1.epgs.1.name }}"
-     with_subelements: 
-       - "{{ tenants }}"
-       - "application_profiles"
-  
+#   - name: debugging
+#     tags: dbg
+#     debug:
+#       msg: "{{ item.0.name }}"
+#       msg: "{{ item.1.name }}"
+#       msg: "{{ item.1.subnets.0.name }}"
+#       msg: "{{ item.1.name }}"
+#       msg: "{{ item.1.name }}"
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "bridge_domains"
 
 
 
@@ -148,20 +135,33 @@
        - "bridge_domains"
 
 
-#   - name: Create EPG_Web_Server
-#     tags: epg
-#     aci_epg:
-#       tenant: "{{ item.0.name }}"
-#       ap: "{{ item.0.application_profiles.name }}"
-#       epg: "{{ item.1.epg.0.name }}"
-#       #description: "Description of EPG_Web"
-#       #bd: "{{ item.1.epg.bd }}"
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     with_subelements: 
-#       - "{{ tenants }}"
-#       - "bridge_domains"
+   - name: Create EPGs
+     tags: epg
+     aci_epg:
+       tenant: "{{ item.0.name }}"
+       ap: "{{ item.0.application_profiles.0.name }}"
+       epg: "{{ item.1.epg.0.name }}"
+       bd: "{{ item.1.epg.0.bd }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
+
+
+
+   - name: Create EPG_Web_Server
+     tags: dbg
+     debug:
+       #msg: "{{ item.0.name }}"
+       #msg: "{{ item.1.application_profiles.0.epg }}"
+       #msg: "{{ item.1.epgs.0.name }}"
+       msg: "{{ item.1.epgs.1.name }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
+  
 
 
