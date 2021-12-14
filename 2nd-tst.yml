@@ -359,3 +359,20 @@
        - "{{ tenants }}"
 
 
+   - name: Configure external EPG_4 as consumer in contract C_internet
+     tags: cont,L3,extepg
+     cisco.aci.aci_l3out_extepg_to_contract:
+       tenant: "{{ item.0.name  }}"
+       extepg: "{{ epg_4 }}"
+       l3out: "{{ l3out_name }}" 
+       contract:  "{{ item.1.epgs.0.contracts.0.name }}"
+       contract_type: consumer
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
+
+
