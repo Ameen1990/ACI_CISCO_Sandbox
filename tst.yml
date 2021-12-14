@@ -11,12 +11,12 @@
      L3_domain: 'ISR3945'
 
      
-   vars:
-     cred: &cred
-       host: "{{ inventory_hostname }}"
-       username: "{{ user }}"
-       password: "{{ pass }}"
-       validate_certs: false
+#   vars:
+#     cred: &cred
+#       host: "{{ inventory_hostname }}"
+#       username: "{{ user }}"
+#       password: "{{ pass }}"
+#       validate_certs: false
      
      
 
@@ -41,7 +41,18 @@
      - coding_challenge_ansible.yml
 
    tasks:
-   
+
+   - name: set Credentials
+     set_fact:
+       cred: &cred
+         host: "{{ inventory_hostname }}"
+         username: "{{ user }}"
+         password: "{{ pass }}"
+         validate_certs: false
+     
+
+      msg: this is a test
+
    - name: Create a tenant
      tags: always
      aci_tenant:
