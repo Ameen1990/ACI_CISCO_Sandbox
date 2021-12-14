@@ -6,7 +6,10 @@
    vars:
      ansible_connection: local
      ansible_python_interpreter: /usr/bin/python3
-    
+     l3out_name: 'L3_Out_Device'
+     epg_4: 'External_EPG'
+
+
    vars_prompt:
      - name: "apic_ip"
        prompt: "Enter APIC IP"
@@ -320,3 +323,44 @@
        - "application_profiles"
 
 
+
+   - name: Create L3-Out
+     tags: L3
+     aci_l3out:
+       tenant: "{{ item.0.name  }}"
+       l3out:  "{{ l3out_name  }}"
+       description: L3_Out for Production tenant
+       #domain: "{{ L3_domain }}"
+       vrf: "{{ item.1.name }}"
+       l3protocol: ospf
+       route_control: export
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_subelements: 
+       - "{{ tenants }}"
+       - "vrfs"
+
+
+   - name: Create External_EPG
+     tags: L3,extepg
+     aci_l3out_extepg:
+       extepg: "{{ epg_4 }}"
+       tenant: "{{ item.name  }}"
+       l3out: "{{ l3out_name }}" 
+       description: External EPG which to be associated with the L3-out
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
+     with_items:
+       - "{{ tenants }}"
+
+
+   - name: Create External_EPG
+     tags: dbg4
+     debug:
+       msg: "{{ item.name  }}"
+     with_items:
+       - "{{ tenants }}"
