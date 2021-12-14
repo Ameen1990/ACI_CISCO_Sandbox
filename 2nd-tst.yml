@@ -212,15 +212,7 @@
        - "contracts"
 
 
-#  - name: Contract names
-#     tags: cont
-#     debug:
-#       #tenant: "{{ item.0.name }}"
-#       msg: "{{ item.1.name }}"
-#       #scope: tenant
-#     with_subelements: 
-#       - "{{ tenants }}"
-#       - "contracts"
+
 
 #   - name: Configure Contract_1 EPG Provider
 #     tags: cont
@@ -254,14 +246,11 @@
        - "contracts"
 
 
+  - name: Contract-EPG Wings 
+     tags: dbg3
+     debug:
+       msg: "{{ item.1.epgs.contracts.type }}"
+     with_subelements: 
+       - "{{ tenants }}"
+       - "application_profiles"
 
-#   - name: Contract names
-#     tags: dbg2
-#     debug:
-#       #tenant: "{{ item.0.name }}"
-#       msg: "{{ item.1.subject.0.filter }}"
-#       #scope: tenant
-#     with_subelements: 
-#       - "{{ tenants }}"
-#       - "contracts"
- 
