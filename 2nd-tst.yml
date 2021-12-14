@@ -239,28 +239,29 @@
 #       - "contracts"
 
 
-#   - name: Add a new contract subject
-#     aci_contract_subject:
-#       tenant: 
-#       contract: 
-#       subject: 
-#       host: "{{ inventory_hostname }}"
-#       username: "{{ user }}"
-#       password: "{{ pass }}"
-#       validate_certs: false
-#     with_subelements: 
-#       - "{{ tenants }}"
-#       - "contracts"
-
-
-
-   - name: Contract names
-     tags: dbg2
-     debug:
-       #tenant: "{{ item.0.name }}"
-       msg: "{{ item.1.subject.0.filter }}"
-       #scope: tenant
+   - name: Add a new contract subject
+     tags: subj
+     aci_contract_subject:
+       tenant: "{{ item.0.name }}"
+       contract: "{{ item.1.name }}"
+       subject: "{{ item.1.subject.0.filter }}"
+       host: "{{ inventory_hostname }}"
+       username: "{{ user }}"
+       password: "{{ pass }}"
+       validate_certs: false
      with_subelements: 
        - "{{ tenants }}"
        - "contracts"
+
+
+
+#   - name: Contract names
+#     tags: dbg2
+#     debug:
+#       #tenant: "{{ item.0.name }}"
+#       msg: "{{ item.1.subject.0.filter }}"
+#       #scope: tenant
+#     with_subelements: 
+#       - "{{ tenants }}"
+#       - "contracts"
  
