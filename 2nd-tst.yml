@@ -8,6 +8,7 @@
      ansible_python_interpreter: /usr/bin/python3
      l3out_name: 'L3_Out_Device'
      epg_4: 'External_EPG'
+     L3_domain: 'ISR3945'
 
 
    vars_prompt:
@@ -330,7 +331,7 @@
        tenant: "{{ item.0.name  }}"
        l3out:  "{{ l3out_name  }}"
        description: L3_Out for Production tenant
-       #domain: "{{ L3_domain }}"
+       domain: "{{ L3_domain }}"
        vrf: "{{ item.1.name }}"
        l3protocol: ospf
        route_control: export
@@ -358,9 +359,3 @@
        - "{{ tenants }}"
 
 
-   - name: Create External_EPG
-     tags: dbg4
-     debug:
-       msg: "{{ item.name  }}"
-     with_items:
-       - "{{ tenants }}"
