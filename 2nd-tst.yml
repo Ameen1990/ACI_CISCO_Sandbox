@@ -66,7 +66,7 @@
        #msg: "{{ item.0.name }}"
        #msg: "{{ item.1.application_profiles.0.epg }}"
        #msg: "{{ item.1.epgs.0.name }}"
-       msg: "{{ item.1.epgs.name }}"
+       msg: "{{ item.1.epgs.1.name }}"
      with_subelements: 
        - "{{ tenants }}"
        - "application_profiles"
