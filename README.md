@@ -57,3 +57,10 @@ Notes: -
 - Make sure that the switches (leaves and spine) are already there, if not, then add them manually.
 - The process in triggered from "final.yml" Playbook.
 - Screenshots are attached in Issues section.
+
+If you get this error:-
+ERROR ! couldnt resolve module/action 'cisco.aci.extepg_to_contrcat'  
+
+Run the below command: -
+
+"ansible-galaxy collection install cisco.aci"
