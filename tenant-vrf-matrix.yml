@@ -20,15 +20,15 @@
       <<: *aci_login
       path: /api/node/class/fvTenant.json?query-target-filter=and(not(wcard(fvTenant.dn,"uni/tn-common")),not(wcard(fvTenant.dn,"uni/tn-infra")),not(wcard(fvTenant.dn,"uni/tn-mgmt")))
       method: get
-    register: yy
+    register: all_tenants
     
-  - name: Search for matching 'dn' attribute that has the designated Node IDs inside it.
+  - name: Set the found Tenatns in a List
     set_fact:
-      found_dns: "{{ found_dns | default([]) + [yy.imdata | json_query(jquery) | flatten ] | flatten }}"
+      found_dns: "{{ found_dns | default([]) + [all_tenants.imdata | json_query(jquery) | flatten ] | flatten }}"
     vars:
       jquery: "[*].fvTenant.attributes.dn"
 
-  - name: Filter DNs to extract Tenant Names
+  - name: Filter The list further
     set_fact:
       found_tns: "{{ found_dns  | regex_replace('uni/tn-','') }}"
     vars:
@@ -48,9 +48,6 @@
     with_items: "{{ found_tns }}"
     register: allvrfs
 
-  - name: print vrf details
-    debug:
-      msg: "{{ allvrfs.results }}"
 
   - name: Extract count of VRFs per Tenant
     set_fact:
@@ -60,18 +57,12 @@
     with_items: "{{ found_tns }}"
 
 
-  - name: Print VRFs Length
-    debug:
-      msg: "{{ found_vrfs_length }}"
-
-
-
-  - name: Combine two lists (tenants and their EPGs count) into a dictionary
+  - name: Combine two lists (tenants and their VRFs count) into a dictionary
     set_fact:
       tenants_and_vrf_lengths: "{{ dict(found_tns |zip(found_vrfs_length)) }}"
 
 
-  - name: Print VRFs Length
+  - name: Print the List of Tenant and VRFs Length
     debug:
       msg: "{{ tenants_and_vrf_lengths }}"
 
