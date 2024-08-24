@@ -1,0 +1,78 @@
+---
+
+- name: Configure base stuff like tenant,vrf, l3out, extepg, etc.
+  hosts: dedicated
+  gather_facts: false
+  connection: local
+
+  vars:
+    aci_login: &aci_login
+      hostname: '{{ ansible_host }}'
+      username: '{{ local_apic_user }}'
+      certificate_name: '{{ cert_name }}'
+      private_key: "{{ lookup('file', 'group_vars/{{ group_names[0] }}/ComeBack-Cert.key') }}"
+      validate_certs: false
+
+
+  tasks:
+  - name: Grabbing All tenants details
+    aci_rest:
+      <<: *aci_login
+      path: /api/node/class/fvTenant.json?query-target-filter=and(not(wcard(fvTenant.dn,"uni/tn-common")),not(wcard(fvTenant.dn,"uni/tn-infra")),not(wcard(fvTenant.dn,"uni/tn-mgmt")))
+      method: get
+    register: yy
+    
+  - name: Search for matching 'dn' attribute that has the designated Node IDs inside it.
+    set_fact:
+      found_dns: "{{ found_dns | default([]) + [yy.imdata | json_query(jquery) | flatten ] | flatten }}"
+    vars:
+      jquery: "[*].fvTenant.attributes.dn"
+
+  - name: Filter DNs to extract Tenant Names
+    set_fact:
+      found_tns: "{{ found_dns  | regex_replace('uni/tn-','') }}"
+    vars:
+      jquery: "[*].fvTenant.attributes.dn"
+
+
+  - name: print list of found Tenants
+    debug:
+      msg: "{{ found_tns }}"
+
+
+  - name: Grabbing all VRFs for all Tenants.
+    aci_rest:
+      <<: *aci_login
+      path: /api/node/class/fvCtx.json?query-target-filter=wcard(fvCtx.dn,"uni/tn-{{ item }}")
+      method: get
+    with_items: "{{ found_tns }}"
+    register: allvrfs
+
+  - name: print vrf details
+    debug:
+      msg: "{{ allvrfs.results }}"
+
+  - name: Extract count of VRFs per Tenant
+    set_fact:
+      found_vrfs_length: "{{ found_vrfs_length | default([]) + [allvrfs.results | to_json | from_json | json_query(jquery) | flatten | length] }}"
+    vars:
+      - jquery: "[].imdata[?starts_with(fvCtx.attributes.dn, 'uni/tn-{{ item }}/')]"
+    with_items: "{{ found_tns }}"
+
+
+  - name: Print VRFs Length
+    debug:
+      msg: "{{ found_vrfs_length }}"
+
+
+
+  - name: Combine two lists (tenants and their EPGs count) into a dictionary
+    set_fact:
+      tenants_and_vrf_lengths: "{{ dict(found_tns |zip(found_vrfs_length)) }}"
+
+
+  - name: Print VRFs Length
+    debug:
+      msg: "{{ tenants_and_vrf_lengths }}"
+
+
